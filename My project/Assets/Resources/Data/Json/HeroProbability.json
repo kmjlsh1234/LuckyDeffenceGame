@@ -1,0 +1,22 @@
+[
+  {
+    "Grade": "Normal",
+    "Probability": 80
+  },
+  {
+    "Grade": "Rare",
+    "Probability": 18
+  },
+  {
+    "Grade": "SuperRare",
+    "Probability": 1.4
+  },
+  {
+    "Grade": "Epic",
+    "Probability": 0.5
+  },
+  {
+    "Grade": "Legend",
+    "Probability": 0.1
+  }
+]
