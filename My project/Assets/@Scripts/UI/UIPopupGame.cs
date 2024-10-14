@@ -27,19 +27,18 @@ public class UIPopupGame : UIBase
             Debug.LogWarning("No EmptyPos!");
             return;
         }
-
+        
         //TODO : 랜덤으로 영웅 선택하기
         string randomHero = DataManager.Instance.SelectRandomHeroByProbability();
         Debug.Log($"{randomHero} 소환");
 
         //TODO : 가져온 위치에 영웅 소환하기
-        GameObject go = ResourceManager.Instance.GetHero(randomHero);
-        GameObject hero = Instantiate(go);
-        hero.transform.SetParent(emptyPos.transform);
-        hero.transform.localPosition = Vector3.zero;
-        hero.transform.localRotation = Quaternion.identity;
-        hero.transform.localScale = Vector3.one;
+        GameObject hero = PoolManager.Instance.Pop(randomHero, "hero", emptyPos.transform);
 
+        hero.GetComponent<HeroBase>().Init(emptyPos);
+
+        //TODO : 소환 처리
+        emptyPos.IsEmpty = false;
         _generateButton.enabled = true;
 
         

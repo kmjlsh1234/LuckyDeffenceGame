@@ -13,5 +13,6 @@ public static class Constant
     public const string UI_PREFAB_PATH = "Prefs/UI/";
     public const string HERO_PREFAB_PATH = "Prefs/Hero/";
     public const string ENEMY_PREFAB_PATH = "Prefs/Enemy/";
+    public const string PROJECTILE_PREFAB_PATH = "prefs/Projectile/";
 
 }

@@ -1,0 +1,222 @@
+[
+  {
+    "ID": 1,
+    "PrefabName": "Human_Normal",
+    "Name": "일반 병사",
+    "Grade": "Normal",
+    "HeroType": "Human",
+    "AttackType": "MELEE",
+    "Damage": 2,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 2,
+    "PrefabName": "Human_Rare",
+    "Name": "훈련 교관",
+    "Grade": "Rare",
+    "HeroType": "Human",
+    "AttackType": "MELEE",
+    "Damage": 4,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 3,
+    "PrefabName": "Human_SuperRare",
+    "Name": "암살 요원",
+    "Grade": "SuperRare",
+    "HeroType": "Human",
+    "AttackType": "RANGE",
+    "Damage": 6,
+    "AttackSpeed": 1,
+    "AttackRange": 5
+  },
+  {
+    "ID": 4,
+    "PrefabName": "Human_Epic",
+    "Name": "대마도사",
+    "Grade": "Epic",
+    "HeroType": "Human",
+    "AttackType": "AREA",
+    "Damage": 8,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 5,
+    "PrefabName": "Human_Legend",
+    "Name": "총사령관",
+    "Grade": "Legend",
+    "HeroType": "Human",
+    "AttackType": "AREA",
+    "Damage": 10,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 6,
+    "PrefabName": "Elf_Normal",
+    "Name": "Normal_Elf",
+    "Grade": "Normal",
+    "HeroType": "Elf",
+    "AttackType": "MELEE",
+    "Damage": 2,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 7,
+    "PrefabName": "Elf_Rare",
+    "Name": "Rare_Elf",
+    "Grade": "Rare",
+    "HeroType": "Elf",
+    "AttackType": "MELEE",
+    "Damage": 4,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 8,
+    "PrefabName": "Elf_SuperRare",
+    "Name": "SuperRare_Elf",
+    "Grade": "SuperRare",
+    "HeroType": "Elf",
+    "AttackType": "RANGE",
+    "Damage": 6,
+    "AttackSpeed": 1,
+    "AttackRange": 5
+  },
+  {
+    "ID": 9,
+    "PrefabName": "Elf_Epic",
+    "Name": "Epic_Elf",
+    "Grade": "Epic",
+    "HeroType": "Elf",
+    "AttackType": "AREA",
+    "Damage": 8,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 10,
+    "PrefabName": "Elf_Legend",
+    "Name": "Legend_Elf",
+    "Grade": "Legend",
+    "HeroType": "Elf",
+    "AttackType": "AREA",
+    "Damage": 10,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 11,
+    "PrefabName": "Devil_Normal",
+    "Name": "Normal_Devil",
+    "Grade": "Normal",
+    "HeroType": "Devil",
+    "AttackType": "MELEE",
+    "Damage": 2,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 12,
+    "PrefabName": "Devil_Rare",
+    "Name": "Rare_Devil",
+    "Grade": "Rare",
+    "HeroType": "Devil",
+    "AttackType": "MELEE",
+    "Damage": 4,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 13,
+    "PrefabName": "Devil_SuperRare",
+    "Name": "SuperRare_Devil",
+    "Grade": "SuperRare",
+    "HeroType": "Devil",
+    "AttackType": "RANGE",
+    "Damage": 6,
+    "AttackSpeed": 1,
+    "AttackRange": 5
+  },
+  {
+    "ID": 14,
+    "PrefabName": "Devil_Epic",
+    "Name": "Epic_Devil",
+    "Grade": "Epic",
+    "HeroType": "Devil",
+    "AttackType": "AREA",
+    "Damage": 8,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 15,
+    "PrefabName": "Devil_Legend",
+    "Name": "Legend_Devil",
+    "Grade": "Legend",
+    "HeroType": "Devil",
+    "AttackType": "AREA",
+    "Damage": 10,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 16,
+    "PrefabName": "Skeleton_Normal",
+    "Name": "Normal_Skeleton",
+    "Grade": "Normal",
+    "HeroType": "Skeleton",
+    "AttackType": "MELEE",
+    "Damage": 2,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 17,
+    "PrefabName": "Skeleton_Rare",
+    "Name": "Rare_Skeleton",
+    "Grade": "Rare",
+    "HeroType": "Skeleton",
+    "AttackType": "MELEE",
+    "Damage": 4,
+    "AttackSpeed": 1,
+    "AttackRange": 3
+  },
+  {
+    "ID": 18,
+    "PrefabName": "Skeleton_SuperRare",
+    "Name": "SuperRare_Skeleton",
+    "Grade": "SuperRare",
+    "HeroType": "Skeleton",
+    "AttackType": "RANGE",
+    "Damage": 6,
+    "AttackSpeed": 1,
+    "AttackRange": 5
+  },
+  {
+    "ID": 19,
+    "PrefabName": "Skeleton_Epic",
+    "Name": "Epic_Skeleton",
+    "Grade": "Epic",
+    "HeroType": "Skeleton",
+    "AttackType": "AREA",
+    "Damage": 8,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  },
+  {
+    "ID": 20,
+    "PrefabName": "Skeleton_Legend",
+    "Name": "Legend_Skeleton",
+    "Grade": "Legend",
+    "HeroType": "Skeleton",
+    "AttackType": "AREA",
+    "Damage": 10,
+    "AttackSpeed": 1,
+    "AttackRange": 4
+  }
+]

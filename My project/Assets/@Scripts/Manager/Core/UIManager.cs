@@ -67,7 +67,6 @@ public class UIManager : SingletonBase<UIManager>
 
                 //add Stack
                 _popupSystem.Push(uiBase);
-                Debug.Log("Stack : " + _popupSystem.Count);
             }
             else
             {

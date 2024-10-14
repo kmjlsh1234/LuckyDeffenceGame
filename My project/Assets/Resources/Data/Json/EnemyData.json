@@ -1,0 +1,34 @@
+[
+  {
+    "ID": 1,
+    "PrefabName": "Enemy_Normal",
+    "Name": "Enemy_Normal",
+    "Health": 10,
+    "Money": 10,
+    "Speed": 2
+  },
+  {
+    "ID": 2,
+    "PrefabName": "Enemy_Rare",
+    "Name": "Enemy_Rare",
+    "Health": 10,
+    "Money": 10,
+    "Speed": 2
+  },
+  {
+    "ID": 3,
+    "PrefabName": "Enemy_SuperRare",
+    "Name": "Enemy_SuperRare",
+    "Health": 10,
+    "Money": 10,
+    "Speed": 2
+  },
+  {
+    "ID": 4,
+    "PrefabName": "Enemy_Epic",
+    "Name": "Enemy_Epic",
+    "Health": 10,
+    "Money": 10,
+    "Speed": 2
+  }
+]

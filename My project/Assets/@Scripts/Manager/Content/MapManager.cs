@@ -29,6 +29,7 @@ public class MapManager : SingletonBase<MapManager>
             map.transform.position = Vector3.zero;
             map.transform.rotation = Quaternion.identity;
             map.transform.localScale = Vector3.one;
+            map.name.Replace("(Clone)", "");
             MapBase mapBase = map.GetComponent<MapBase>();
             CurrentMap = mapBase;
         }

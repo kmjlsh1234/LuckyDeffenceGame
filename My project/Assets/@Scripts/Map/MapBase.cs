@@ -20,6 +20,12 @@ public class MapBase : MonoBehaviour
         Init();
     }
 
+    private void Start()
+    {
+        //TODO : Enemy 持失
+        StartCoroutine(GenerateEnemy());
+    }
+
     public virtual void Init()
     {
         int count = 0;
@@ -40,8 +46,7 @@ public class MapBase : MonoBehaviour
             _enemyPointers.Add(child);
         }
 
-        //TODO : Enemy 持失
-        StartCoroutine(GenerateEnemy());
+        
 
     }
 
@@ -51,7 +56,7 @@ public class MapBase : MonoBehaviour
         {
             for (int j = 0; j < _heroPosMap.GetLength(1); j++)
             {
-                if (_heroPosMap[i, j].IsEmpty())
+                if (_heroPosMap[i, j].IsEmpty)
                     return _heroPosMap[i, j];
             }
         }

@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -8,24 +9,49 @@ public class DataManager : SingletonBase<DataManager>
 {
     public List<HeroProbability> _heroProbabilities = new List<HeroProbability>();
 
+    public List<HeroData> _heroDatas = new List<HeroData>();
+    public List<EnemyData> _enemyDatas = new List<EnemyData>();
+
     private int heroTypeEnumCount;
+
     public void Init()
     {
         heroTypeEnumCount = System.Enum.GetValues(typeof(Enum.HeroType)).Length;
-        LoadHeroProbabilityData();
+
+        _heroProbabilities.Clear();
+        _heroDatas.Clear();
+        _enemyDatas.Clear();
+
+        LoadData("HeroProbability", ref _heroProbabilities);
+        LoadData("HeroData", ref _heroDatas);
+        LoadData("EnemyData", ref _enemyDatas);
     }
 
-    public void LoadHeroProbabilityData()
+    public void LoadData<T>(string fileName, ref List<T> list)
     {
-        TextAsset asset = Resources.Load<TextAsset>(Constant.DATA_FILE_PATH + "HeroProbability");
+        TextAsset asset = Resources.Load<TextAsset>(Constant.DATA_FILE_PATH + fileName);
         if(asset != null)
         {
-            _heroProbabilities = JsonConvert.DeserializeObject<List<HeroProbability>>(asset.text);
+            list = JsonConvert.DeserializeObject <List<T>> (asset.text);
+            Debug.Log($"Data {fileName} Load Complete!");
         }
         else
         {
-            Debug.LogError("Data Not Exist!");
+            Debug.LogError($"Data {fileName} Not Exist!");
         }
+    }
+
+    public HeroData FindHeroDataByPrefabName(string prefabName)
+    {
+        var data = _heroDatas.FirstOrDefault(x => x.PrefabName.Equals(prefabName));
+        return (data != null) ? data : null;
+    }
+
+    public EnemyData FindEnemyDataByPrefabName(string prefabName)
+    {
+        
+        var data = _enemyDatas.FirstOrDefault(x => x.PrefabName.Equals(prefabName));
+        return (data != null) ? data : null;
     }
 
     public string SelectRandomHeroByProbability()
@@ -55,9 +81,9 @@ public class DataManager : SingletonBase<DataManager>
         //TODO : 해당 등급의 타입의 종류 수 체크
 
         //TODO : 문자열 조합
-        targetName += gradeType;
-        targetName += "_";
         targetName += heroType;
+        targetName += "_";
+        targetName += gradeType;
         return targetName;
     }
 

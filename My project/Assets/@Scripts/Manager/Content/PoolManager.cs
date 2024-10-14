@@ -4,22 +4,23 @@ using System.Linq;
 using UnityEngine;
 
 public class PoolManager : SingletonBase<PoolManager>
-{
-    public Dictionary<string, GameObject> _heroDic = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> _enemyDic = new Dictionary<string, GameObject>();
-
+{    
     public List<GameObject> _heroPool = new List<GameObject>();
     public List<GameObject> _enemyPool = new List<GameObject>();
+    public List<GameObject> _projectilePool = new List<GameObject>();
 
     public Transform _heroPoolRoot = null;
     public Transform _enemyPoolRoot = null;
+    public Transform _projectilePoolRoot = null;
     public void Init()
     {
-        _heroPoolRoot = new GameObject().transform;
-        _enemyPoolRoot = new GameObject().transform;
+        _heroPoolRoot = new GameObject() { name = "@HeroPool" }.transform;
+        _enemyPoolRoot = new GameObject() { name = "@EnemyPool" }.transform;
+        _projectilePoolRoot = new GameObject() { name = "@ProjectilePool" }.transform;
 
-        _heroPoolRoot.name = "@HeroPool";
-        _enemyPoolRoot.name = "@EnemyPool";
+        DontDestroyOnLoad(_heroPoolRoot);
+        DontDestroyOnLoad(_enemyPoolRoot);
+        DontDestroyOnLoad(_projectilePoolRoot);
     }
 
     //풀에서 꺼내기
@@ -44,6 +45,7 @@ public class PoolManager : SingletonBase<PoolManager>
                 }
                 else
                 {
+                    hero.transform.SetParent(_heroPoolRoot);
                     hero.transform.position = parent.position;
                     hero.transform.localPosition = Vector3.zero;
                     hero.transform.localRotation = Quaternion.identity;
@@ -76,6 +78,30 @@ public class PoolManager : SingletonBase<PoolManager>
                     enemy.SetActive(true);
                     enemy.GetComponent<EnemyBase>().Init();
                     return enemy;
+                }
+            case "projectile":
+                GameObject projectile = _projectilePool.FirstOrDefault(x => !x.activeInHierarchy && x.name == key);
+                if (projectile == null)
+                {
+                    projectile = ResourceManager.Instance.GetProjectile(key);
+                    GameObject obj = Instantiate(projectile);
+                    obj.transform.SetParent(_projectilePoolRoot);
+                    obj.transform.position = parent.position;
+                    obj.transform.localRotation = Quaternion.identity;
+                    obj.transform.localScale = Vector3.one * 0.5f;
+                    obj.SetActive(true);
+                    obj.name = key;
+                    Push(obj, poolName);
+                    return obj;
+                }
+                else
+                {
+                    projectile.transform.SetParent(_projectilePoolRoot);
+                    projectile.transform.position = parent.position;
+                    projectile.transform.localRotation = Quaternion.identity;
+                    projectile.transform.localScale = Vector3.one * 0.5f;
+                    projectile.SetActive(true);
+                    return projectile;
                 }
         }
         return null;

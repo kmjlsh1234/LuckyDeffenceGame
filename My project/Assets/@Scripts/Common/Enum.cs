@@ -37,4 +37,28 @@ public static class Enum
         Elf = 2,
         Skeleton = 3,
     }
+
+    public enum Grade
+    {
+        Normal = 0,
+        Rare = 1,
+        SuperRare = 2,
+        Epic = 3,
+        Legend = 4,
+    }
+
+    public enum AttackType
+    {
+        MELEE = 0, //근거리
+        RANGE = 1, //원거리
+        AREA = 2, //범위형
+    }
+
+    public enum AnimationType
+    {
+        Idle,
+        Run,
+        Attack,
+        Death,
+    }
 }
