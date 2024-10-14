@@ -12,5 +12,6 @@ public class GameScene : SceneBase
 
         UIManager.Instance.Push(UIType.UIPopupGame);
         MapManager.Instance.GenerateMap();
+        GameManager.Instance.StartGame();
     }
 }

@@ -117,6 +117,9 @@ public class PoolManager : SingletonBase<PoolManager>
             case "enemy":
                 _enemyPool.Add(go);
                 break;
+            case "projectile":
+                _projectilePool.Add(go);
+                break;
         }
     }
 }

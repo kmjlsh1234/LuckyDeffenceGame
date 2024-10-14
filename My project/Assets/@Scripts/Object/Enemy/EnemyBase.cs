@@ -91,7 +91,8 @@ public class EnemyBase : MonoBehaviour, IDamage
                 StopCoroutine(_moveRoutine);
                 _moveRoutine = null;
             }
-
+            GameManager.Instance.KillCount++;
+            GameManager.Instance.CurrentMoney += _enemyData.Money;
             gameObject.SetActive(false);
         }
     }

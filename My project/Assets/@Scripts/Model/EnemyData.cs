@@ -9,6 +9,6 @@ public class EnemyData
     public string PrefabName;
     public string Name;
     public float Health;
-    public float Money;
+    public int Money;
     public float Speed;
 }

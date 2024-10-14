@@ -14,6 +14,7 @@ public class SplashScene : SceneBase
         UIManager.Instance.Init();
         MapManager.Instance.Init();
         PoolManager.Instance.Init();
+        GameManager.Instance.Init();
     }
 
     
@@ -23,5 +24,6 @@ public class SplashScene : SceneBase
         base.Init();
 
         UIManager.Instance.Push(UIType.UIPopupSplash);
+        SoundManager.Instance.PlayBGM("BGM_Splash");
     }
 }

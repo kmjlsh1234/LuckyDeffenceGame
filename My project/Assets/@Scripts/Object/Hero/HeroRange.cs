@@ -19,8 +19,10 @@ public class HeroRange : HeroBase, IAttack
                 if (_enemiesInRange[0] != null)
                 {
                     GameObject projectile = null;
+                    Vector3 targetPos = _enemiesInRange[0].transform.position;
                     projectile = PoolManager.Instance.Pop("Arrow", "projectile", this.transform);
-                    projectile.transform.DOMove(_enemiesInRange[0].transform.position, _heroData.AttackSpeed)
+                    _enemiesInRange[0].OnDamage(_heroData.Damage);
+                    projectile.transform.DOMove(targetPos, _heroData.AttackSpeed)
                         .OnComplete(() => projectile.SetActive(false));
                 }
                 else
@@ -29,7 +31,7 @@ public class HeroRange : HeroBase, IAttack
                     continue;
                 }
                 yield return new WaitForSeconds(_heroData.AttackSpeed);
-                _enemiesInRange[0].OnDamage(_heroData.Damage); 
+                 
             }
             else
             {
