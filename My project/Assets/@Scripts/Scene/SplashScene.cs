@@ -7,6 +7,7 @@ public class SplashScene : SceneBase
 {
     public void Awake()
     {
+        CameraManager.Instance.Init();
         SoundManager.Instance.Init();
         ResourceManager.Instance.Init();
         DataManager.Instance.Init();

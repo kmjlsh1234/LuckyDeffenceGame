@@ -2125,9 +2125,9 @@ GameObject:
   - component: {fileID: -8821418264602838742}
   - component: {fileID: 8217938231638118329}
   - component: {fileID: -2412102137227327588}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Elf_SuperRare
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2164,6 +2164,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5296745fd75cc1c44ba8db5333e9e2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 0}
+  _attackRange: {fileID: 0}
+  _heroData:
+    ID: 0
+    PrefabName: 
+    Name: 
+    Grade: 0
+    HeroType: 0
+    AttackType: 0
+    Damage: 0
+    AttackSpeed: 0
+    AttackRange: 0
   _enemiesInRange: []
 --- !u!58 &8217938231638118329
 CircleCollider2D:

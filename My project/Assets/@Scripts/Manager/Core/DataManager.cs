@@ -11,6 +11,7 @@ public class DataManager : SingletonBase<DataManager>
 
     public List<HeroData> _heroDatas = new List<HeroData>();
     public List<EnemyData> _enemyDatas = new List<EnemyData>();
+    public List<MapPosData> _mapPosDatas = new List<MapPosData>();
 
     private int heroTypeEnumCount;
 
@@ -21,10 +22,12 @@ public class DataManager : SingletonBase<DataManager>
         _heroProbabilities.Clear();
         _heroDatas.Clear();
         _enemyDatas.Clear();
+        _mapPosDatas.Clear();
 
         LoadData("HeroProbability", ref _heroProbabilities);
         LoadData("HeroData", ref _heroDatas);
         LoadData("EnemyData", ref _enemyDatas);
+        LoadData("MapPosData", ref _mapPosDatas);
     }
 
     public void LoadData<T>(string fileName, ref List<T> list)

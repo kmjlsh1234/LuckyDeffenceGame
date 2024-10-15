@@ -6,8 +6,10 @@ public class HeroBase : MonoBehaviour, IAttack
 {
     //Component_Property
     [SerializeField] protected Animator _anim;
-    [SerializeField] protected CircleCollider2D _attackRange;
+    [SerializeField] protected CircleCollider2D _touchArea = null;
+    [SerializeField] protected CircleCollider2D _attackRange = null;
 
+    public Pos Pos { get { return _currentPos ; } set { _currentPos = value; } }
     protected Pos _currentPos;
 
     //Data_Property
@@ -20,13 +22,15 @@ public class HeroBase : MonoBehaviour, IAttack
     public void Awake()
     {
         _anim = GetComponentInChildren<Animator>();
-        _attackRange = GetComponent<CircleCollider2D>();
+        _touchArea = GetComponent<CircleCollider2D>();
+
+        GameObject child = transform.GetChild(0).gameObject;
+        _attackRange = child.AddComponent<CircleCollider2D>();
+        //child.layer = LayerMask.NameToLayer("Ignore Raycast");
     }
 
     public void Init(Pos pos)
     {
-        
-
         _heroData = DataManager.Instance.FindHeroDataByPrefabName(this.gameObject.name.Replace("(Clone)", ""));
         _attackRange.radius = _heroData.AttackRange;
         _currentPos = pos;

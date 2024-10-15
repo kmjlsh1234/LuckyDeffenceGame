@@ -1,0 +1,110 @@
+[
+  {
+    "MapType": "Map_City",
+    "PosNum": 0,
+    "X": -2,
+    "Y": 5
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 1,
+    "X": 0,
+    "Y": 5
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 2,
+    "X": 2,
+    "Y": 5
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 3,
+    "X": -2,
+    "Y": 3
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 4,
+    "X": 0,
+    "Y": 3
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 5,
+    "X": 2,
+    "Y": 3
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 6,
+    "X": -2,
+    "Y": 1
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 7,
+    "X": 0,
+    "Y": 1
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 8,
+    "X": 2,
+    "Y": 1
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 9,
+    "X": -2,
+    "Y": -1
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 10,
+    "X": 0,
+    "Y": -1
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 11,
+    "X": 2,
+    "Y": -1
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 12,
+    "X": -2,
+    "Y": -3
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 13,
+    "X": 0,
+    "Y": -3
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 14,
+    "X": 2,
+    "Y": -3
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 15,
+    "X": -2,
+    "Y": -5
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 16,
+    "X": 0,
+    "Y": -5
+  },
+  {
+    "MapType": "Map_City",
+    "PosNum": 17,
+    "X": 2,
+    "Y": -5
+  }
+]

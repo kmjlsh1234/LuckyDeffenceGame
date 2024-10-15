@@ -36,6 +36,7 @@ public class MapBase : MonoBehaviour
 
                 _heroPosMap[i, j] = _heroPosMapParent.transform.GetChild(count).GetComponent<Pos>();
                 _heroPosMap[i, j].gameObject.name = $"Pos[{i},{j}]";
+                _heroPosMap[i, j].gameObject.name = $"Pos_{count}";
                 count++;
             }
         }
