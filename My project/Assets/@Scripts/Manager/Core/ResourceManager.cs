@@ -7,12 +7,14 @@ public class ResourceManager : SingletonBase<ResourceManager>
     private Dictionary<string, GameObject> _heroDic = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> _enemyDic = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> _projectileDic = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> _extraPrefabDic = new Dictionary<string, GameObject>();
 
     public void Init()
     {
         LoadData(_heroDic, Constant.HERO_PREFAB_PATH);
         LoadData(_enemyDic, Constant.ENEMY_PREFAB_PATH);
         LoadData(_projectileDic, Constant.PROJECTILE_PREFAB_PATH);
+        LoadData(_extraPrefabDic, Constant.EXTRA_PREFAB_PATH);
     }
 
     public void LoadData<T>(Dictionary<string,T> dic, string filePath) where T : UnityEngine.Object
@@ -61,6 +63,21 @@ public class ResourceManager : SingletonBase<ResourceManager>
         if (_projectileDic.TryGetValue(key, out projectile))
         {
             return projectile;
+        }
+        else
+        {
+            Debug.LogError($"{key} Not Exist!");
+            return null;
+        }
+    }
+
+    public GameObject GetExtraPrefab(string key)
+    {
+        GameObject extraPrefab = null;
+
+        if (_projectileDic.TryGetValue(key, out extraPrefab))
+        {
+            return extraPrefab;
         }
         else
         {

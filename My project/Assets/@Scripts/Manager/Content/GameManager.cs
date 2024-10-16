@@ -17,6 +17,7 @@ public class GameManager : SingletonBase<GameManager>
     {
         ResetGameSetting();
 
+        InputManager.Instance.OnClickFinish += OnClickFinish;
         InputManager.Instance.OnDragFinish += OnDragFinish;
     }
 
@@ -60,6 +61,15 @@ public class GameManager : SingletonBase<GameManager>
             }
             TimerFloat += 1f;
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public void OnClickFinish(GameObject go)
+    {
+        HeroBase hero = go.GetComponent<HeroBase>();
+        if(go != null)
+        {
+            hero.WorldCanvasOnOff(true);
         }
     }
 

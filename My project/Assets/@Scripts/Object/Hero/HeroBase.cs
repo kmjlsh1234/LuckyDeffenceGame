@@ -8,7 +8,7 @@ public class HeroBase : MonoBehaviour, IAttack
     [SerializeField] protected Animator _anim;
     [SerializeField] protected CircleCollider2D _touchArea = null;
     [SerializeField] protected CircleCollider2D _attackRange = null;
-
+    [SerializeField] protected Canvas _worldCanvas;
     public Pos Pos { get { return _currentPos ; } set { _currentPos = value; } }
     protected Pos _currentPos;
 
@@ -23,6 +23,7 @@ public class HeroBase : MonoBehaviour, IAttack
     {
         _anim = GetComponentInChildren<Animator>();
         _touchArea = GetComponent<CircleCollider2D>();
+        _worldCanvas = GetComponentInChildren<Canvas>();
 
         GameObject child = transform.GetChild(0).gameObject;
         _attackRange = child.AddComponent<CircleCollider2D>();
@@ -70,6 +71,11 @@ public class HeroBase : MonoBehaviour, IAttack
                 _enemiesInRange.Remove(enemyBase);
             }
         }
+    }
+
+    public void WorldCanvasOnOff(bool isOn)
+    {
+        _worldCanvas.gameObject.SetActive(isOn);
     }
 
     public virtual void OnAttack()

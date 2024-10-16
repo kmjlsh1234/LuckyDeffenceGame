@@ -3006,6 +3006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 0}
+  _touchArea: {fileID: 0}
   _attackRange: {fileID: 0}
   _heroData:
     ID: 0
@@ -3050,7 +3051,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.3}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!50 &-737874225571125312

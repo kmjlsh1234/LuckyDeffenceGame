@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class InputManager : SingletonBase<InputManager>
 {
     public delegate void OnClickEvent(GameObject go);
-    public delegate void OnClickFinishEvent();
+    public delegate void OnClickFinishEvent(GameObject go);
 
     public delegate void OnDragStartEvent(GameObject go);
     public delegate void OnDragEvent();
@@ -69,7 +69,12 @@ public class InputManager : SingletonBase<InputManager>
         {
             if (_timer < 0.1f)
             {
-                OnClickFinish?.Invoke();
+                GameObject hit = RaycastFromCamera("Hero");
+                if (hit != null)
+                {
+                    GameManager.Instance.CurrentSelectHero = hit.GetComponent<HeroBase>();
+                }
+                OnClickFinish?.Invoke(hit);
             }
             else
             {
