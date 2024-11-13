@@ -18,17 +18,17 @@ public class Pos : MonoBehaviour
         _collider = GetComponent<BoxCollider>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        InputManager.Instance.OnDrag += OnDrag;
+        InputManager.Instance.OnDragStart += OnDragStart;
         InputManager.Instance.OnDragFinish += OnDragFinish;
     }
 
-    public void OnDrag()
+    public void OnDragStart(Vector3 touchPos)
     {
         if (_tweener != null) return;
         _tweener = _spriteRenderer.DOFade(0.5f, 0.5f).SetLoops(-1, LoopType.Yoyo);
     }
 
-    public void OnDragFinish(GameObject go)
+    public void OnDragFinish(Vector3 touchPos)
     {
         if(_tweener != null)
         {
@@ -42,7 +42,7 @@ public class Pos : MonoBehaviour
 
     public void OnDestroy()
     {
-        InputManager.Instance.OnDrag -= OnDrag;
+        InputManager.Instance.OnDrag -= OnDragStart;
         InputManager.Instance.OnDragFinish -= OnDragFinish;
     }
 }

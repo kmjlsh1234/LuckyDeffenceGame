@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using DG.Tweening;
+
 public class GameManager : SingletonBase<GameManager>
 {
     public Coroutine TimerRoutine;
@@ -18,6 +20,7 @@ public class GameManager : SingletonBase<GameManager>
         ResetGameSetting();
 
         InputManager.Instance.OnClickFinish += OnClickFinish;
+        InputManager.Instance.OnDragStart += OnDragStart;
         InputManager.Instance.OnDragFinish += OnDragFinish;
     }
 
@@ -64,29 +67,45 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    public void OnClickFinish(GameObject go)
+    public void OnDragStart(Vector3 touchPos)
     {
-        HeroBase hero = go.GetComponent<HeroBase>();
-        if(go != null)
+        GameObject go = CameraManager.Instance.RaycastTarget(touchPos, "Hero");
+        HeroBase hero = go?.GetComponent<HeroBase>();
+        if (hero != null)
         {
-            hero.WorldCanvasOnOff(true);
+            CurrentSelectHero = hero;
         }
     }
 
-    public void OnDragFinish(GameObject go)
+    public void OnClickFinish(Vector3 touchPos)
     {
+        GameObject go = CameraManager.Instance.RaycastTarget(touchPos, "Hero");
+
         if (go == null) return;
+    }
+
+    public void OnDragFinish(Vector3 touchPos)
+    {
+        GameObject pos = CameraManager.Instance.RaycastTarget(touchPos, "Pos");
+        GameObject anotherHero = CameraManager.Instance.RaycastTarget(touchPos, "Hero");
+
+        if (pos == null) return;
 
         if (CurrentSelectHero == null) return;
 
-        if (go.CompareTag("Pos"))
+        if(anotherHero != null)
         {
-            CurrentSelectHero.transform.position = go.transform.position;
+            anotherHero.transform.DOMove(CurrentSelectHero.transform.position, 0.5f);
+            CurrentSelectHero.transform.DOMove(pos.transform.position, 0.5f);
+        }
+        else
+        {
+
+            CurrentSelectHero.transform.DOMove(pos.transform.position, 0.5f);
             CurrentSelectHero.Pos.IsEmpty = true;
-            CurrentSelectHero.Pos = go.GetComponent<Pos>();
+            CurrentSelectHero.Pos = pos.GetComponent<Pos>();
             CurrentSelectHero.Pos.IsEmpty = false;
         }
-
 
         CurrentSelectHero = null;
     }

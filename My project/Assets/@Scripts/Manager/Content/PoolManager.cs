@@ -8,19 +8,23 @@ public class PoolManager : SingletonBase<PoolManager>
     public List<GameObject> _heroPool = new List<GameObject>();
     public List<GameObject> _enemyPool = new List<GameObject>();
     public List<GameObject> _projectilePool = new List<GameObject>();
+    public List<GameObject> _extraPrefabPool = new List<GameObject>();
 
     public Transform _heroPoolRoot = null;
     public Transform _enemyPoolRoot = null;
     public Transform _projectilePoolRoot = null;
+    public Transform _extraPrefabPoolRoot = null;
     public void Init()
     {
         _heroPoolRoot = new GameObject() { name = "@HeroPool" }.transform;
         _enemyPoolRoot = new GameObject() { name = "@EnemyPool" }.transform;
         _projectilePoolRoot = new GameObject() { name = "@ProjectilePool" }.transform;
+        _extraPrefabPoolRoot = new GameObject() { name = "@ExtraPrefabPool" }.transform;
 
         DontDestroyOnLoad(_heroPoolRoot);
         DontDestroyOnLoad(_enemyPoolRoot);
         DontDestroyOnLoad(_projectilePoolRoot);
+        DontDestroyOnLoad(_extraPrefabPoolRoot);
     }
 
     //풀에서 꺼내기
@@ -103,6 +107,30 @@ public class PoolManager : SingletonBase<PoolManager>
                     projectile.SetActive(true);
                     return projectile;
                 }
+            case "extraPrefab":
+                GameObject extraPrefab = _extraPrefabPool.FirstOrDefault(x => !x.activeInHierarchy && x.name == key);
+                if (extraPrefab == null)
+                {
+                    projectile = ResourceManager.Instance.GetExtraPrefab(key);
+                    GameObject obj = Instantiate(extraPrefab);
+                    obj.transform.SetParent(_extraPrefabPoolRoot);
+                    obj.transform.position = parent.position;
+                    obj.transform.localRotation = Quaternion.identity;
+                    obj.transform.localScale = Vector3.one;
+                    obj.SetActive(true);
+                    obj.name = key;
+                    Push(obj, poolName);
+                    return obj;
+                }
+                else
+                {
+                    extraPrefab.transform.SetParent(_extraPrefabPoolRoot);
+                    extraPrefab.transform.position = parent.position;
+                    extraPrefab.transform.localRotation = Quaternion.identity;
+                    extraPrefab.transform.localScale = Vector3.one * 0.5f;
+                    extraPrefab.SetActive(true);
+                    return extraPrefab;
+                }
         }
         return null;
     }
@@ -119,6 +147,9 @@ public class PoolManager : SingletonBase<PoolManager>
                 break;
             case "projectile":
                 _projectilePool.Add(go);
+                break;
+            case "extraPrefab":
+                _extraPrefabPool.Add(go);
                 break;
         }
     }

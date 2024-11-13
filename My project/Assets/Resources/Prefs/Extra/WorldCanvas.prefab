@@ -237,7 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27cd5e92f69d330489b087a002b7fbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroBase: {fileID: 0}
   _summonButton: {fileID: 4403209311463588889}
   _sellButton: {fileID: 8922730095491744661}
 --- !u!1 &4641703949553733185

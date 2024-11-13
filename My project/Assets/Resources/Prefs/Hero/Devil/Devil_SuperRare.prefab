@@ -964,7 +964,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8532493155649694633}
   - component: {fileID: -1917317873002039350}
-  - component: {fileID: -8961051913321180944}
   - component: {fileID: 8669876025967090369}
   m_Layer: 0
   m_Name: Devil_SuperRare
@@ -1004,6 +1003,7 @@ MonoBehaviour:
   _anim: {fileID: 0}
   _touchArea: {fileID: 0}
   _attackRange: {fileID: 0}
+  _worldCanvas: {fileID: 0}
   _heroData:
     ID: 0
     PrefabName: 
@@ -1015,41 +1015,6 @@ MonoBehaviour:
     AttackSpeed: 0
     AttackRange: 0
   _enemiesInRange: []
---- !u!58 &-8961051913321180944
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3671022009787552655}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!50 &8669876025967090369
 Rigidbody2D:
   serializedVersion: 4

@@ -2880,7 +2880,6 @@ GameObject:
   m_Component:
   - component: {fileID: 748902824158480587}
   - component: {fileID: -5523616494223821585}
-  - component: {fileID: 6643599562272503150}
   - component: {fileID: -8522119823211654770}
   m_Layer: 0
   m_Name: Elf_Normal
@@ -2920,6 +2919,7 @@ MonoBehaviour:
   _anim: {fileID: 0}
   _touchArea: {fileID: 0}
   _attackRange: {fileID: 0}
+  _worldCanvas: {fileID: 0}
   _heroData:
     ID: 0
     PrefabName: 
@@ -2931,41 +2931,6 @@ MonoBehaviour:
     AttackSpeed: 0
     AttackRange: 0
   _enemiesInRange: []
---- !u!58 &6643599562272503150
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5692327168834826477}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!50 &-8522119823211654770
 Rigidbody2D:
   serializedVersion: 4

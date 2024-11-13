@@ -3604,7 +3604,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2306834058533053601}
-  - component: {fileID: 8356907782942309796}
   - component: {fileID: -1618591758113651410}
   - component: {fileID: 5614412943841570098}
   m_Layer: 0
@@ -3630,41 +3629,6 @@ Transform:
   - {fileID: 2306834059817840065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
---- !u!58 &8356907782942309796
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2306834059925559378}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &-1618591758113651410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3680,6 +3644,7 @@ MonoBehaviour:
   _anim: {fileID: 0}
   _touchArea: {fileID: 0}
   _attackRange: {fileID: 0}
+  _worldCanvas: {fileID: 0}
   _heroData:
     ID: 0
     PrefabName: 

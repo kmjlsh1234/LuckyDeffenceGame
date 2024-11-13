@@ -5,102 +5,74 @@ using UnityEngine.EventSystems;
 
 public class InputManager : SingletonBase<InputManager>
 {
-    public delegate void OnClickEvent(GameObject go);
-    public delegate void OnClickFinishEvent(GameObject go);
+    public delegate void OnClickEvent(Vector3 touchPos);
+    public delegate void OnClickFinishEvent(Vector3 touchPos);
 
-    public delegate void OnDragStartEvent(GameObject go);
-    public delegate void OnDragEvent();
-    public delegate void OnDragFinishEvent(GameObject go);
+    public delegate void OnDragStartEvent(Vector3 touchPos);
+    public delegate void OnDragEvent(Vector3 touchPos);
+    public delegate void OnDragFinishEvent(Vector3 touchPos);
+    
     
     public OnClickEvent OnClick;
+    public OnClickFinishEvent OnClickFinish;
+
     public OnDragStartEvent OnDragStart;
     public OnDragEvent OnDrag;
-    public OnClickFinishEvent OnClickFinish;
     public OnDragFinishEvent OnDragFinish;
 
-    private float _timer;
-    private bool _isTouchStart;
-    private bool _isDragStart;
+    private bool _isDragging = false;
+    private float _timer = 0f;
     public void Init()
     {
+        _isDragging = false;
         _timer = 0f;
-        _isTouchStart = false;
-        _isDragStart = false;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // 마우스 입력을 추가
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            _isTouchStart = true;
-            GameObject hit = RaycastFromCamera("Hero");
-            if(hit != null)
-            {
-                OnClick?.Invoke(hit);
-            }
-            
+            Vector3 mousePos = Input.mousePosition;
+            OnClick?.Invoke(mousePos);
+            Debug.Log("마우스 클릭 시작: ");
         }
 
-        if(_isTouchStart)
+        if (Input.GetMouseButton(0))
         {
             _timer += Time.deltaTime;
-        }
-        
-        if(_timer >= 0.1f)
-        {
-            if(!_isDragStart)
-            {
-                _isDragStart = true;
-                GameObject hit = RaycastFromCamera("Hero");
-                if(hit != null)
-                {
-                    GameManager.Instance.CurrentSelectHero = hit.GetComponent<HeroBase>();
-                }
-                
-                OnDragStart?.Invoke(hit);
-            }
-            OnDrag?.Invoke();
-        }    
+            Vector3 mousePos = Input.mousePosition;
 
-        if(Input.GetMouseButtonUp(0))
-        {
-            if (_timer < 0.1f)
+            if(_timer > 0.1f)
             {
-                GameObject hit = RaycastFromCamera("Hero");
-                if (hit != null)
+                if (!_isDragging)
                 {
-                    GameManager.Instance.CurrentSelectHero = hit.GetComponent<HeroBase>();
+                    _isDragging = true;
+                    OnDragStart?.Invoke(mousePos);
+                    Debug.Log("마우스 드래그 시작: ");
                 }
-                OnClickFinish?.Invoke(hit);
+            }
+            
+
+            if (_isDragging)
+            {
+                OnDrag?.Invoke(mousePos);
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            if (_isDragging)
+            {
+                OnDragFinish?.Invoke(mousePos);
+                Debug.Log("마우스 드래그 끝: ");
             }
             else
             {
-                GameObject hit = RaycastFromCamera("Pos");
-                OnDragFinish?.Invoke(hit);
+                OnClickFinish?.Invoke(mousePos);
+                Debug.Log("마우스 클릭 끝: ");
             }
+            _isDragging = false;
             _timer = 0f;
-            _isTouchStart = false;
-            _isDragStart = false;
         }
-    }
-
-    public GameObject RaycastFromCamera(string type)
-    {
-        Vector2 mousePos = CameraManager.Instance.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
-
-        if (hits.Length >0)
-        {
-            foreach(RaycastHit2D hit in hits)
-            {
-                if (hit.collider.CompareTag(type))
-                    return hit.collider.gameObject;
-            }
-        }
-        Debug.LogError("no object detected");
-        return null;
     }
 }

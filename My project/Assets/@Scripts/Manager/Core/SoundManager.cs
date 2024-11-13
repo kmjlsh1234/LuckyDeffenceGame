@@ -24,6 +24,7 @@ public class SoundManager : SingletonBase<SoundManager>
             _bgmSource = this.gameObject.AddComponent<AudioSource>();
             _bgmSource.playOnAwake = false;
             _bgmSource.loop = true;
+            _bgmSource.volume = 0.1f;
         }
 
         AudioClip[] _sfxClips = Resources.LoadAll<AudioClip>(Constant.SFX_FILE_PATH);
