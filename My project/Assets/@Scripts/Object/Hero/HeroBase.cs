@@ -33,7 +33,7 @@ public class HeroBase : MonoBehaviour, IAttack
 
     public void Init(Pos pos)
     {
-        _worldCanvas.gameObject.SetActive(false);
+        //_worldCanvas.gameObject.SetActive(false);
         _heroData = DataManager.Instance.FindHeroDataByPrefabName(this.gameObject.name.Replace("(Clone)", ""));
         _attackRange.radius = _heroData.AttackRange;
         _currentPos = pos;
