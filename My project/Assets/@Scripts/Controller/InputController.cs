@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enum;
 
 public class InputController : MonoBehaviour
 {
@@ -50,16 +51,19 @@ public class InputController : MonoBehaviour
 
         if (anotherHero != null)
         {
+            anotherHero.GetComponent<HeroBase>().ChangeHeroState(HeroStatus.MOVE);
+            CurrentSelectHero.ChangeHeroState(HeroStatus.MOVE);
             anotherHero.transform.DOMove(CurrentSelectHero.transform.position, 0.5f);
             CurrentSelectHero.transform.DOMove(pos.transform.position, 0.5f);
         }
         else
         {
+            CurrentSelectHero.ChangeHeroState(HeroStatus.MOVE);
 
             CurrentSelectHero.transform.DOMove(pos.transform.position, 0.5f);
-            CurrentSelectHero.Pos.IsEmpty = true;
-            CurrentSelectHero.Pos = pos.GetComponent<Pos>();
-            CurrentSelectHero.Pos.IsEmpty = false;
+            CurrentSelectHero.GetCurrentPos().IsEmpty = true;
+            CurrentSelectHero.SetCurrentPos(pos.GetComponent<Pos>());
+            CurrentSelectHero.GetCurrentPos().IsEmpty = false;
         }
 
         CurrentSelectHero = null;

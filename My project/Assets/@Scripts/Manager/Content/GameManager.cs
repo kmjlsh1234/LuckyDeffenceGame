@@ -21,7 +21,7 @@ public class GameManager : SingletonBase<GameManager>
     public void ResetGameSetting()
     {
         CurrentMoney = 0;
-        NeedGenerateMoney = 10;
+        NeedGenerateMoney = 1;
         TimerFloat = 0f;
         KillCount = 0;
         WaveCount = 1;

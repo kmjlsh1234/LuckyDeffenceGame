@@ -61,4 +61,11 @@ public static class Enum
         Attack,
         Death,
     }
+
+    public enum HeroStatus
+    {
+        IDLE,
+        MOVE,
+        ATTACK,
+    }
 }

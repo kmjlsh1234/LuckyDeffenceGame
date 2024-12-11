@@ -20,7 +20,7 @@ public class CameraManager : SingletonBase<CameraManager>
 
         if(hits.Length ==0)
         {
-            Debug.LogError("No Object Detected");
+            Debug.LogWarning("No Object Detected");
             return null;
         }
         else

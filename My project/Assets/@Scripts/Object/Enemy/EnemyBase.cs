@@ -81,7 +81,7 @@ public class EnemyBase : MonoBehaviour, IDamage
         hp -= damage;
 
         //죽었는지 체크
-        if(hp <= 0)
+        if (hp <= 0)
         {
             //TODO : 적 처치 했을 때 기능들 추가(EX. 처치 COUNT ++)
             //TODO : 게임매니저에 _enemyData.Money++

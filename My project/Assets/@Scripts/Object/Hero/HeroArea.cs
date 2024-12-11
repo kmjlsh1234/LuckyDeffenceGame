@@ -1,28 +1,25 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enum;
 
 public class HeroArea : HeroBase
 {
     
     public override IEnumerator AttackEnemy()
     {
-        while (true)
+        //범위 안에 적이 있다면
+        if (enemiesInRange.Count > 0)
         {
-            if (_enemiesInRange.Count > 0)
+            foreach (EnemyBase enemy in enemiesInRange)
             {
-                foreach(EnemyBase enemy in _enemiesInRange)
-                {
-                    enemy.OnDamage(_heroData.Damage);
-                }
-                
-                yield return new WaitForSeconds(_heroData.AttackSpeed);
+                enemy.OnDamage(heroData.Damage);
+            }
 
-            }
-            else
-            {
-                yield return null;
-            }
+            yield return new WaitForSeconds(heroData.AttackSpeed);
         }
+
+        ChangeHeroState(HeroStatus.IDLE);
     }
 }

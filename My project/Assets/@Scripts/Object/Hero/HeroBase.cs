@@ -1,53 +1,115 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
-public class HeroBase : MonoBehaviour, IAttack
+using static Enum;
+using UniRx;
+public class HeroBase : MonoBehaviour
 {
+    //State_Property
+    protected IdleState idleState;
+    protected MoveState moveState;
+    protected AttackState attackState;
+
     //Component_Property
-    [SerializeField] protected Animator _anim;
-    [SerializeField] protected BoxCollider2D _touchArea = null;
-    [SerializeField] protected CircleCollider2D _attackRange = null;
-    [SerializeField] protected Canvas _worldCanvas;
-    public Pos Pos { get { return _currentPos ; } set { _currentPos = value; } }
-    protected Pos _currentPos;
+    public Animator anim { get; private set; }
+    protected BoxCollider2D touchArea;
+    protected CircleCollider2D attackRange;
 
     //Data_Property
-    [SerializeField] protected HeroData _heroData;
+    protected HeroData heroData;
+    public HeroStatus currentHeroStatus { get; set; }
 
-    [SerializeField] protected List<EnemyBase> _enemiesInRange = new List<EnemyBase>();
+    protected Pos _currentPos;
+    [SerializeField] protected List<EnemyBase> enemiesInRange = new List<EnemyBase>();
+    
+    public Coroutine attackRoutine;
 
-    protected Coroutine _attackRoutine;
+    
+
+    #region :::: GET, SET
+    public Pos GetCurrentPos() { return _currentPos ; }
+    public void SetCurrentPos(Pos pos) { _currentPos = pos ; }
+    #endregion
 
     public void Awake()
     {
-        _anim = GetComponentInChildren<Animator>();
-        _touchArea = gameObject.AddComponent<BoxCollider2D>();
-        _worldCanvas = GetComponentInChildren<Canvas>();
+        anim = GetComponentInChildren<Animator>();
+        touchArea = gameObject.AddComponent<BoxCollider2D>();
 
-        _touchArea.offset = Vector2.up * 0.3f;
+        touchArea.offset = Vector2.up * 0.3f;
 
         GameObject child = transform.GetChild(0).gameObject;
-        _attackRange = child.AddComponent<CircleCollider2D>();
+        attackRange = child.AddComponent<CircleCollider2D>();
+
+        idleState = new IdleState();
+        moveState = new MoveState();
+        attackState = new AttackState();
     }
 
     public void Init(Pos pos)
     {
-        //_worldCanvas.gameObject.SetActive(false);
-        _heroData = DataManager.Instance.FindHeroDataByPrefabName(this.gameObject.name.Replace("(Clone)", ""));
-        _attackRange.radius = _heroData.AttackRange;
+        heroData = DataManager.Instance.FindHeroDataByPrefabName(this.gameObject.name.Replace("(Clone)", ""));
+        attackRange.radius = heroData.AttackRange;
         _currentPos = pos;
-        _enemiesInRange.Clear();
-        
-        _attackRoutine = StartCoroutine(AttackEnemy());
+        enemiesInRange.Clear();
     }
 
-    private void OnDisable()
+
+    protected void Update()
     {
-        if(_attackRoutine != null)
+        //현재 이동 중인지 확인
+        if (currentHeroStatus == HeroStatus.MOVE) return;
+
+        if(enemiesInRange.Count == 0 && currentHeroStatus != HeroStatus.IDLE)
         {
-            StopCoroutine(_attackRoutine);
-            _attackRoutine = null;
+            ChangeHeroState(HeroStatus.IDLE);
+        }
+        if(enemiesInRange.Count > 0 && currentHeroStatus == HeroStatus.IDLE)
+        {
+            ChangeHeroState(HeroStatus.ATTACK);
+        }
+    }
+
+
+    public void ChangeHeroState(HeroStatus status)
+    {
+        HeroState<HeroBase> heroState = RetrieveState();
+        switch (status)
+        {
+            case HeroStatus.IDLE:
+                heroState.Idle(this);
+                break;
+            case HeroStatus.MOVE:
+                heroState.Move(this);
+                break;
+            case HeroStatus.ATTACK:
+                heroState.Attack(this);
+                break;
+        }
+    }
+
+    public HeroState<HeroBase> RetrieveState()
+    {
+        switch (currentHeroStatus)
+        {
+            case HeroStatus.IDLE:
+                return idleState;
+            case HeroStatus.MOVE:
+                return moveState;
+            case HeroStatus.ATTACK:
+                return attackState;
+            default:
+                return idleState;
+        }
+    }
+
+    protected void OnDisable()
+    {
+        if(attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+            attackRoutine = null;
         }
     }
 
@@ -58,7 +120,7 @@ public class HeroBase : MonoBehaviour, IAttack
             EnemyBase enemyBase = other.GetComponent<EnemyBase>();
             if(enemyBase!=null)
             {
-                _enemiesInRange.Add(enemyBase);
+                enemiesInRange.Add(enemyBase);
             }
         }
     }
@@ -70,19 +132,19 @@ public class HeroBase : MonoBehaviour, IAttack
             EnemyBase enemyBase = other.GetComponent<EnemyBase>();
             if (enemyBase != null)
             {
-                _enemiesInRange.Remove(enemyBase);
+                enemiesInRange.Remove(enemyBase);
             }
         }
     }
 
-    public void WorldCanvasOnOff()
+    public void Attack()
     {
-        _worldCanvas.gameObject.SetActive(_worldCanvas.gameObject.activeSelf);
-    }
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+        }
 
-    public virtual void OnAttack()
-    {
-
+        attackRoutine = StartCoroutine(AttackEnemy());
     }
 
     public virtual IEnumerator AttackEnemy()
