@@ -23,7 +23,7 @@ public class MapManager : SingletonBase<MapManager>
     public void GenerateMap()
     {
         GameObject go = null;
-        if(_mapDic.TryGetValue(CurrentMapType.ToString(),out go))
+        if(_mapDic.TryGetValue(CurrentMapType.ToString(), out go))
         {
             GameObject map = Instantiate(go);
             map.transform.position = Vector3.zero;

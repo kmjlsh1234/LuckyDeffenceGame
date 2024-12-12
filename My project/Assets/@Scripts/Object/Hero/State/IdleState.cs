@@ -8,11 +8,7 @@ public class IdleState : MonoBehaviour, HeroState<HeroBase>
     //IDLE -> IDLE
     public void Idle(HeroBase hero)
     {
-        //현재 Idle이면 종료
-        if(hero.currentHeroStatus == HeroStatus.IDLE) { return; }
-
-        hero.anim.SetTrigger(HeroStatus.IDLE.ToString());
-        hero.currentHeroStatus = HeroStatus.IDLE;
+        
     }
 
     //IDLE -> MOVE

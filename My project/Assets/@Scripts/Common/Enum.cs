@@ -72,10 +72,14 @@ public static class Enum
     public enum InputStatus
     {
         INPUT_WAIT,
-        CLICK_START,
-        CLICK_FINISH,
-        DRAG_START,
+        CLICK,
         DRAG,
-        DRAG_FINISH,
+    }
+
+    public enum TagType
+    {
+        Hero,
+        Pos,
+        Enemy,
     }
 }

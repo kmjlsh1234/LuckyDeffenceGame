@@ -6,14 +6,14 @@ using static Enum;
 public class MapBase : MonoBehaviour
 {
     public MapType _mapType;
-    public GameObject HeroPosMap { get { return _heroPosMapParent; } }
     
-    [SerializeField] private GameObject _heroPosMapParent;
-    private Pos[,] _heroPosMap = new Pos[6, 3];
+    [SerializeField] private GameObject heroPosMapParent;
+    [SerializeField] private Transform enemyPointerParent;
 
-    [SerializeField] private Transform _enemyPointerParent;
-    public List<Transform> EnemyPointers { get { return _enemyPointers; } }
-    private List<Transform> _enemyPointers = new List<Transform>();
+    public Pos[,] heroPosMap = new Pos[6, 3];
+    
+    public List<Transform> EnemyPointers { get { return enemyPointers; } }
+    private List<Transform> enemyPointers = new List<Transform>();
 
     private void Awake()
     {
@@ -29,36 +29,33 @@ public class MapBase : MonoBehaviour
     public virtual void Init()
     {
         int count = 0;
-        for (int i=0; i< _heroPosMap.GetLength(0); i++)
+        for (int i=0; i< heroPosMap.GetLength(0); i++)
         {
-            for(int j=0; j< _heroPosMap.GetLength(1); j++)
+            for(int j=0; j< heroPosMap.GetLength(1); j++)
             {
 
-                _heroPosMap[i, j] = _heroPosMapParent.transform.GetChild(count).GetComponent<Pos>();
-                _heroPosMap[i, j].gameObject.name = $"Pos[{i},{j}]";
-                _heroPosMap[i, j].gameObject.name = $"Pos_{count}";
+                heroPosMap[i, j] = heroPosMapParent.transform.GetChild(count).GetComponent<Pos>();
+                heroPosMap[i, j].gameObject.name = $"Pos[{i},{j}]";
+                heroPosMap[i, j].gameObject.name = $"Pos_{count}";
                 count++;
             }
         }
 
         //TODO : EnemyPointer 추가하기
-        foreach(Transform child in _enemyPointerParent)
+        foreach(Transform child in enemyPointerParent)
         {
-            _enemyPointers.Add(child);
+            enemyPointers.Add(child);
         }
-
-        
-
     }
 
     public Pos FindEmptyPos()
     {
-        for (int i = 0; i < _heroPosMap.GetLength(0); i++)
+        for (int i = 0; i < heroPosMap.GetLength(0); i++)
         {
-            for (int j = 0; j < _heroPosMap.GetLength(1); j++)
+            for (int j = 0; j < heroPosMap.GetLength(1); j++)
             {
-                if (_heroPosMap[i, j].IsEmpty)
-                    return _heroPosMap[i, j];
+                if (heroPosMap[i, j].isEmpty)
+                    return heroPosMap[i, j];
             }
         }
         return null;
@@ -66,7 +63,7 @@ public class MapBase : MonoBehaviour
 
     IEnumerator GenerateEnemy()
     {
-        GameObject go = PoolManager.Instance.Pop("Enemy_Normal", "enemy", _enemyPointers[0]);
+        GameObject go = PoolManager.Instance.Pop("Enemy_Normal", "enemy", enemyPointers[0]);
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(GenerateEnemy());

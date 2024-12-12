@@ -78,7 +78,7 @@ public class UIPopupGame : UIBase
         hero.GetComponent<HeroBase>().Init(emptyPos);
 
         //TODO : 소환 처리
-        emptyPos.IsEmpty = false;
+        emptyPos.isEmpty = false;
         _generateButton.enabled = true;
     }
 }

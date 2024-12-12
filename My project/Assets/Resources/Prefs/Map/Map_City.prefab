@@ -2925,8 +2925,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapType: 0
-  _heroPosMapParent: {fileID: 4669210577756079930}
-  _enemyPointerParent: {fileID: 5427907823496039408}
+  heroPosMapParent: {fileID: 4669210577756079930}
+  enemyPointerParent: {fileID: 5427907823496039408}
 --- !u!1 &8502637324193421831
 GameObject:
   m_ObjectHideFlags: 0
