@@ -13,24 +13,17 @@ public class HeroBase : MonoBehaviour
 
     //Component_Property
     public Animator anim { get; private set; }
-    protected BoxCollider2D touchArea;
-    protected CircleCollider2D attackRange;
+    private BoxCollider2D touchArea;
+    private CircleCollider2D attackRange;
 
     //Data_Property
     protected HeroData heroData;
     public HeroStatus currentHeroStatus { get; set; }
 
-    protected Pos _currentPos;
+    public Pos currentPos { get; set; }
     [SerializeField] protected List<EnemyBase> enemiesInRange = new List<EnemyBase>();
     
-    public Coroutine attackRoutine;
-
-    
-
-    #region :::: GET, SET
-    public Pos GetCurrentPos() { return _currentPos ; }
-    public void SetCurrentPos(Pos pos) { _currentPos = pos ; }
-    #endregion
+    protected Coroutine attackRoutine;
 
     public void Awake()
     {
@@ -51,7 +44,7 @@ public class HeroBase : MonoBehaviour
     {
         heroData = DataManager.Instance.FindHeroDataByPrefabName(this.gameObject.name.Replace("(Clone)", ""));
         attackRange.radius = heroData.AttackRange;
-        _currentPos = pos;
+        currentPos = pos;
         enemiesInRange.Clear();
     }
 
@@ -89,7 +82,7 @@ public class HeroBase : MonoBehaviour
         }
     }
 
-    public HeroState<HeroBase> RetrieveState()
+    private HeroState<HeroBase> RetrieveState()
     {
         switch (currentHeroStatus)
         {

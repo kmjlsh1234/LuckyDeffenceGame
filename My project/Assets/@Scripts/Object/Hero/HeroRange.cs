@@ -16,8 +16,7 @@ public class HeroRange : HeroBase
             enemiesInRange[0].OnDamage(heroData.Damage);
             projectile.transform.DOMove(targetPos, heroData.AttackSpeed)
                     .OnComplete(() => projectile.SetActive(false));
-            //Attack damage
-            enemiesInRange[0].OnDamage(heroData.Damage);
+            
             
             yield return new WaitForSeconds(heroData.AttackSpeed);
         }

@@ -68,4 +68,14 @@ public static class Enum
         MOVE,
         ATTACK,
     }
+
+    public enum InputStatus
+    {
+        INPUT_WAIT,
+        CLICK_START,
+        CLICK_FINISH,
+        DRAG_START,
+        DRAG,
+        DRAG_FINISH,
+    }
 }

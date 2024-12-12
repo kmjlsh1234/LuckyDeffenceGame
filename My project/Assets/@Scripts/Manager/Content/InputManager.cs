@@ -20,16 +20,20 @@ public class InputManager : SingletonBase<InputManager>
     public OnDragEvent OnDrag;
     public OnDragFinishEvent OnDragFinish;
 
-    private bool _isDragging = false;
-    private float _timer = 0f;
+    private bool isDragging = false;
+    private float timer = 0f;
+
     public void Init()
     {
-        _isDragging = false;
-        _timer = 0f;
+        isDragging = false;
+        timer = 0f;
     }
 
     private void Update()
     {
+        //UI 터치 시 RETURN
+        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) { return; }
+
         if (Input.GetMouseButtonDown(0)) // 마우스 입력을 추가
         {
             Vector3 mousePos = Input.mousePosition;
@@ -39,21 +43,21 @@ public class InputManager : SingletonBase<InputManager>
 
         if (Input.GetMouseButton(0))
         {
-            _timer += Time.deltaTime;
+            timer += Time.deltaTime;
             Vector3 mousePos = Input.mousePosition;
 
-            if(_timer > 0.1f)
+            if(timer > 0.1f)
             {
-                if (!_isDragging)
+                if (!isDragging)
                 {
-                    _isDragging = true;
+                    isDragging = true;
                     OnDragStart?.Invoke(mousePos);
                     Debug.Log("마우스 드래그 시작: ");
                 }
             }
             
 
-            if (_isDragging)
+            if (isDragging)
             {
                 OnDrag?.Invoke(mousePos);
             }
@@ -61,7 +65,7 @@ public class InputManager : SingletonBase<InputManager>
         if (Input.GetMouseButtonUp(0))
         {
             Vector3 mousePos = Input.mousePosition;
-            if (_isDragging)
+            if (isDragging)
             {
                 OnDragFinish?.Invoke(mousePos);
                 Debug.Log("마우스 드래그 끝: ");
@@ -71,8 +75,8 @@ public class InputManager : SingletonBase<InputManager>
                 OnClickFinish?.Invoke(mousePos);
                 Debug.Log("마우스 클릭 끝: ");
             }
-            _isDragging = false;
-            _timer = 0f;
+            isDragging = false;
+            timer = 0f;
         }
     }
 }

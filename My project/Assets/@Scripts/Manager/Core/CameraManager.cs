@@ -32,7 +32,7 @@ public class CameraManager : SingletonBase<CameraManager>
                     return hit.collider.gameObject;
                 }
             }
-            Debug.LogError($"No {type} Object Detected");
+            Debug.LogWarning($"No {type} Object Detected");
             return null;
         }
     }

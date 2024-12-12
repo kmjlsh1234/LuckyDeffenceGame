@@ -8,12 +8,14 @@ public class InputController : MonoBehaviour
 {
     
     public HeroBase CurrentSelectHero;
-
+    private InputStateContext inputStateContext;
     public void Init()
     {
         InputManager.Instance.OnClickFinish += OnClickFinish;
         InputManager.Instance.OnDragStart += OnDragStart;
         InputManager.Instance.OnDragFinish += OnDragFinish;
+
+        inputStateContext = new InputStateContext();
     }
 
     public void OnDestroy()
@@ -61,9 +63,9 @@ public class InputController : MonoBehaviour
             CurrentSelectHero.ChangeHeroState(HeroStatus.MOVE);
 
             CurrentSelectHero.transform.DOMove(pos.transform.position, 0.5f);
-            CurrentSelectHero.GetCurrentPos().IsEmpty = true;
-            CurrentSelectHero.SetCurrentPos(pos.GetComponent<Pos>());
-            CurrentSelectHero.GetCurrentPos().IsEmpty = false;
+            CurrentSelectHero.currentPos.IsEmpty = true;
+            CurrentSelectHero.currentPos = pos.GetComponent<Pos>();
+            CurrentSelectHero.currentPos.IsEmpty = false;
         }
 
         CurrentSelectHero = null;

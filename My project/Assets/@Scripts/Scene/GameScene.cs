@@ -1,25 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static Enum;
 
 public class GameScene : SceneBase
 {
-    private InputController inputController;
+    private InputStateContext inputStateContext;
+    private InputStatus currentInputStatus = InputStatus.INPUT_WAIT;
 
-    public override void Init()
+    public GameScene() 
     {
         _sceneName = SceneName.GameScene;
-        base.Init();
-        
         UIManager.Instance.Push(UIType.UIPopupGame);
         MapManager.Instance.GenerateMap();
         GameManager.Instance.StartGame();
 
-        if (inputController == null)
+        if (inputStateContext == null)
         {
-            inputController = gameObject.AddComponent<InputController>();
-            inputController.Init();
+            inputStateContext = new InputStateContext();
+        }
+    }
+
+    private void Update()
+    {
+        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) { return; }
+
+        if (Input.GetMouseButtonDown(0) && currentInputStatus == InputStatus.INPUT_WAIT)
+        {
+            inputStateContext.changeInputState(Input.mousePosition, InputStatus.CLICK_START);
+            
         }
     }
 }
