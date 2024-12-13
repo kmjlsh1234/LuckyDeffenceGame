@@ -27,30 +27,41 @@ public class InputStateService
     public void DragFinish(Vector3 touchPos)
     {
         GameObject pos = CameraManager.Instance.RaycastTarget(touchPos, TagType.Pos.ToString());
-        GameObject anotherHero = CameraManager.Instance.RaycastTarget(touchPos, TagType.Hero.ToString());
+        GameObject hero = CameraManager.Instance.RaycastTarget(touchPos, TagType.Hero.ToString());
 
         if (pos == null) return;
 
         if (currentHero == null) return;
 
-        if (anotherHero != null)
+        if (hero != null)
         {
-            anotherHero.GetComponent<HeroBase>().ChangeHeroState(HeroStatus.MOVE);
+            HeroBase anotherHero = hero.GetComponent<HeroBase>();
             currentHero.ChangeHeroState(HeroStatus.MOVE);
-            anotherHero.transform.DOMove(currentHero.transform.position, 0.5f);
-            currentHero.transform.DOMove(pos.transform.position, 0.5f);
+            anotherHero.ChangeHeroState(HeroStatus.MOVE);
+            anotherHero.transform.DOMove(currentHero.transform.position, 0.5f).OnComplete(() => {
+                anotherHero.ChangeHeroState(HeroStatus.IDLE);
+                currentHero = null;
+            });
+            currentHero.transform.DOMove(pos.transform.position, 0.5f).OnComplete(() => {
+                currentHero.ChangeHeroState(HeroStatus.IDLE);
+                currentHero = null;
+            });
         }
         else
         {
             currentHero.ChangeHeroState(HeroStatus.MOVE);
 
-            currentHero.transform.DOMove(pos.transform.position, 0.5f);
-            currentHero.currentPos.isEmpty = true;
-            currentHero.currentPos = pos.GetComponent<Pos>();
-            currentHero.currentPos.isEmpty = false;
+            currentHero.transform.DOMove(pos.transform.position, 0.5f).OnComplete(() =>
+            {
+                currentHero.ChangeHeroState(HeroStatus.IDLE);
+                currentHero.currentPos.isEmpty = true;
+                currentHero.currentPos = pos.GetComponent<Pos>();
+                currentHero.currentPos.isEmpty = false;
+                currentHero = null;
+            });
         }
 
-        currentHero = null;
+        
     }
 
     public void EnablePos()

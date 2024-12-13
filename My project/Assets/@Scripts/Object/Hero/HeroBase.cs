@@ -18,7 +18,7 @@ public class HeroBase : MonoBehaviour
 
     //Data_Property
     protected HeroData heroData;
-    public HeroStatus currentHeroStatus { get; set; }
+    [SerializeField] public HeroStatus currentHeroStatus;
 
     public Pos currentPos { get; set; }
     [SerializeField] protected List<EnemyBase> enemiesInRange = new List<EnemyBase>();
