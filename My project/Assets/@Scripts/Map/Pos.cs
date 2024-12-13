@@ -26,7 +26,6 @@ public class Pos : MonoBehaviour
 
     public void OnWait()
     {
-        Debug.LogError("OnWait : " + this.name);
         if(_tweener != null)
         {
             _tweener.Kill();

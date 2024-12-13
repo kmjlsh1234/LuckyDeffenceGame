@@ -20,6 +20,7 @@ public static class Enum
     public enum UIType
     {
         UIPopupSplash,
+        UIPopupLogin,
         UIPopupMain,
         UIPopupGame,
     }
