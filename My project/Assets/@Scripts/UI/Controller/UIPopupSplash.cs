@@ -11,6 +11,6 @@ public class UIPopupSplash : UIBase
     public override void Init()
     {
         base.Init();
-        _startButton.onClick.AddListener(() => SceneManager.LoadScene("MainScene"));
+        _startButton.onClick.AddListener(() => SceneManager.LoadScene(SceneName.MainScene.ToString()));
     }
 }

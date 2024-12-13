@@ -17,7 +17,7 @@ public class DataManager : SingletonBase<DataManager>
 
     public void Init()
     {
-        heroTypeEnumCount = System.Enum.GetValues(typeof(Enum.HeroType)).Length;
+        heroTypeEnumCount = System.Enum.GetValues(typeof(HeroType)).Length;
 
         _heroProbabilities.Clear();
         _heroDatas.Clear();
@@ -79,7 +79,7 @@ public class DataManager : SingletonBase<DataManager>
 
         //TODO : 타입 체크
         int randomType = Random.Range(0, heroTypeEnumCount);
-        string heroType = System.Enum.GetName(typeof(Enum.HeroType), randomType);
+        string heroType = System.Enum.GetName(typeof(HeroType), randomType);
 
         //TODO : 해당 등급의 타입의 종류 수 체크
 

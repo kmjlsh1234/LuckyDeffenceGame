@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Enum;
-
 public class SoundManager : SingletonBase<SoundManager>
 {
     private AudioSource _sfxSource;
