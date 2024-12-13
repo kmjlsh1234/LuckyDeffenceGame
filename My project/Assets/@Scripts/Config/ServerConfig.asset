@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191a16d06ad1f2844ba21e9a5feb8d09, type: 3}
   m_Name: ServerConfig
   m_EditorClassIdentifier: 
-  API_SERVER_IP_ADDRESS: 
-  API_SERVER_PORT: 
-  IN_GAME_SERVER_IP_ADDRESS: 
-  IN_GAME_SERVER_PORT: 
+  api_server_ip_address: 
+  api_server_port: 
+  in_game_server_ip_address: 
+  in_game_server_port: 
