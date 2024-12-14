@@ -39,7 +39,7 @@ public class UIManager : SingletonBase<UIManager>
 
     }
 
-    public void Push(UIType type)
+    public void Push(UIType type, ErrorCode code = ErrorCode.SUCCESS)
     {
         GameObject targetPopup = null;
         if(_uiDic.TryGetValue(type, out targetPopup))
@@ -58,7 +58,7 @@ public class UIManager : SingletonBase<UIManager>
                 
 
                 //UI Popup Init
-                uiBase.Init();
+                uiBase.Init(code);
 
                 //Set UI Order
                 _currentHighOrder++;

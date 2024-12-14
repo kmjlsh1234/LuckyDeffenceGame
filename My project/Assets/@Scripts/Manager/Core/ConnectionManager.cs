@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -14,17 +16,18 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         
     }
 
-    public void SendRequest(string uri, string requestBody, HTTP method)
+    public void SendRequest<T>(string uri, T requestBody, HTTP method, Action<UnityWebRequest> callBack)
     {
-        StartCoroutine(HTTPRequest(uri, requestBody, method));
+        StartCoroutine(HTTPRequest(uri, requestBody, method, callBack));
     }
 
-    public void ReceiveResponse(UnityWebRequest.Result res)
+    public void RefreshToken<T>(T requestBody, Action<UnityWebRequest> callBack)
     {
-
+        string uri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.API_SERVER_PORT + ServerURI.AUTH_TOKEN_REFRESH;
+        StartCoroutine(TokenRefreshRequest(uri, requestBody, callBack));
     }
 
-    IEnumerator HTTPRequest(string uri, string requestBody, HTTP method)
+    IEnumerator HTTPRequest<T>(string uri, T requestBody, HTTP method, Action<UnityWebRequest> callBack)
     {
         using(UnityWebRequest req = new UnityWebRequest(uri, method.ToString()))
         {
@@ -33,14 +36,24 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
             yield return req.SendWebRequest();
 
-            if(req.result == UnityWebRequest.Result.Success)
+            if(req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
             {
-                ReceiveResponse(req.result);
+                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
             }
-            else
-            {
+            callBack(req);
+        }
+    }
 
-            }
+    IEnumerator TokenRefreshRequest<T>(string uri, T requestBody, Action<UnityWebRequest> callBack)
+    {
+        using (UnityWebRequest req = new UnityWebRequest(uri, HTTP.POST.ToString()))
+        {
+            SetRequestHeader(req);
+            SetRequestBody(req, requestBody);
+
+            yield return req.SendWebRequest();
+
+            callBack(req);
         }
     }
 
@@ -50,11 +63,11 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
     }
 
-    private void SetRequestBody(UnityWebRequest req, string requestBody)
+    private void SetRequestBody<T>(UnityWebRequest req, T requestBody)
     {
         if (requestBody == null) return;
-
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(requestBody);
+        string jsonData = JsonConvert.SerializeObject(requestBody);
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
         req.uploadHandler = new UploadHandlerRaw(bodyRaw);
         req.downloadHandler = new DownloadHandlerBuffer();
     }

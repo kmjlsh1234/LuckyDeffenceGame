@@ -6,4 +6,12 @@ public class LoginViewModel
 {
     public string email;
     public string password;
+
+    public LoginViewModel(string email, string password) 
+    {
+        this.email = email;
+        this.password = password;
+    }
+
+    public LoginViewModel() { }
 }

@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class ServerConfig
 {
-    private static string SERVER_PREFIX = "http://";
-
+    public static string SERVER_PREFIX = "http://";
+    
     //API SERVER
     public static string API_SERVER_IP_ADDRESS = "127.0.0.1";
-    public static string API_SERVER_PORT = "80";
+    public static string API_SERVER_PORT = "8080";
     
     //IN GAME SERVER
     public static string In_Game_SERVER_IP_ADDRESS = "127.0.0.1";
-    public static string in_Game_SERVER_PORT = "81";
+    public static string in_Game_SERVER_PORT = "8081";
 }

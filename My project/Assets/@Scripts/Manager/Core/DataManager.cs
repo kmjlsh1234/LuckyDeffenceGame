@@ -7,30 +7,51 @@ using UnityEngine;
 
 public class DataManager : SingletonBase<DataManager>
 {
-    public List<HeroProbability> _heroProbabilities = new List<HeroProbability>();
+    #region ::::USERS
+    public Users users = new Users();
+    public LoginViewModel loginViewModel;
+    #endregion
 
-    public List<HeroData> _heroDatas = new List<HeroData>();
-    public List<EnemyData> _enemyDatas = new List<EnemyData>();
-    public List<MapPosData> _mapPosDatas = new List<MapPosData>();
+    public List<HeroProbability> heroProbabilities = new List<HeroProbability>();
 
+    public List<HeroData> heroDatas = new List<HeroData>();
+    public List<EnemyData> enemyDatas = new List<EnemyData>();
+    public List<MapPosData> mapPosDatas = new List<MapPosData>();
+
+    
     private int heroTypeEnumCount;
 
     public void Init()
     {
         heroTypeEnumCount = System.Enum.GetValues(typeof(HeroType)).Length;
 
-        _heroProbabilities.Clear();
-        _heroDatas.Clear();
-        _enemyDatas.Clear();
-        _mapPosDatas.Clear();
+        heroProbabilities.Clear();
+        heroDatas.Clear();
+        enemyDatas.Clear();
+        mapPosDatas.Clear();
 
-        LoadData("HeroProbability", ref _heroProbabilities);
-        LoadData("HeroData", ref _heroDatas);
-        LoadData("EnemyData", ref _enemyDatas);
-        LoadData("MapPosData", ref _mapPosDatas);
+        LoadData("LoginViewModel", ref loginViewModel);
+        LoadListData("HeroProbability", ref heroProbabilities);
+        LoadListData("HeroData", ref heroDatas);
+        LoadListData("EnemyData", ref enemyDatas);
+        LoadListData("MapPosData", ref mapPosDatas);
     }
 
-    public void LoadData<T>(string fileName, ref List<T> list)
+    public void LoadData<T>(string fileName, ref T data)
+    {
+        TextAsset asset = Resources.Load<TextAsset>(Constant.DATA_FILE_PATH + fileName);
+        if (asset != null)
+        {
+            data = JsonConvert.DeserializeObject<T>(asset.text);
+            Debug.Log($"Data {fileName} Load Complete!");
+        }
+        else
+        {
+            Debug.LogError($"Data {fileName} Not Exist!");
+        }
+    }
+
+    public void LoadListData<T>(string fileName, ref List<T> list)
     {
         TextAsset asset = Resources.Load<TextAsset>(Constant.DATA_FILE_PATH + fileName);
         if(asset != null)
@@ -46,14 +67,14 @@ public class DataManager : SingletonBase<DataManager>
 
     public HeroData FindHeroDataByPrefabName(string prefabName)
     {
-        var data = _heroDatas.FirstOrDefault(x => x.PrefabName.Equals(prefabName));
+        var data = heroDatas.FirstOrDefault(x => x.PrefabName.Equals(prefabName));
         return (data != null) ? data : null;
     }
 
     public EnemyData FindEnemyDataByPrefabName(string prefabName)
     {
         
-        var data = _enemyDatas.FirstOrDefault(x => x.PrefabName.Equals(prefabName));
+        var data = enemyDatas.FirstOrDefault(x => x.PrefabName.Equals(prefabName));
         return (data != null) ? data : null;
     }
 
@@ -67,7 +88,7 @@ public class DataManager : SingletonBase<DataManager>
         float cumulativeProbability = 0f;
 
         string gradeType = string.Empty;
-        foreach (var heroProbability in _heroProbabilities)
+        foreach (var heroProbability in heroProbabilities)
         {
             cumulativeProbability += heroProbability.Probability;
             if(randomPoint <= cumulativeProbability)
