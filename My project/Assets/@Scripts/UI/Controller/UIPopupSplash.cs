@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,7 +18,7 @@ public class UIPopupSplash : UIBase
     [SerializeField] private Button modUserInfoButton;
     [SerializeField] private Button googleLoginButton;
 
-    
+    private LoginViewModel loginViewModel;
 
     public override void Init(ErrorCode code = ErrorCode.SUCCESS)
     {
@@ -44,18 +45,18 @@ public class UIPopupSplash : UIBase
 
     public void LoginRequest()
     {
-        LoginViewModel loginForm;
 
         if(DataManager.Instance.loginViewModel != null)
         {
-            loginForm = DataManager.Instance.loginViewModel;
+            loginViewModel = DataManager.Instance.loginViewModel;
         }
         else
         {
-            loginForm = new LoginViewModel(idField.text, passField.text);
+            loginViewModel = new LoginViewModel(idField.text, passField.text);
+            Debug.Log($"ID : {idField.text}\nPW : {passField.text}");
         }
 
-        ConnectionManager.Instance.SendRequest(ServerURI.AUTH_LOGIN_REQUEST, loginForm, HTTP.POST, LoginResponse);
+        ConnectionManager.Instance.SendRequest(ServerURI.AUTH_LOGIN_REQUEST, loginViewModel, HTTP.POST, LoginResponse);
     }
 
     public void LoginResponse(UnityWebRequest res)
@@ -72,11 +73,27 @@ public class UIPopupSplash : UIBase
 
     private void LoginSuccess(UnityWebRequest res)
     {
-        //jwt 저장
+        //jwt 조회
+        string jwtToken = res.GetResponseHeader("Authorization");
 
-        //refresh토큰 저장
+        //refresh토큰 조회
+        string refreshToken = res.GetResponseHeader("ReAuthentication");
+
+        AuthToken authToken = new AuthToken(jwtToken, refreshToken);
+        DataManager.Instance.authToken = authToken;
 
         //users 정보 저장
+        if (res.downloadHandler != null)
+        {
+            string jsonResponse = res.downloadHandler.text;
+
+            UserSimple userSimple = JsonConvert.DeserializeObject<UserSimple>(jsonResponse);
+            DataManager.Instance.userSimple = userSimple;
+        }
+
+        //로컬 데이터 저장
+        DataManager.Instance.SaveData("LoginViewModel", loginViewModel);
+        DataManager.Instance.SaveData("AuthToken", authToken);
 
         //Main Scene으로 이동
         SceneManager.LoadScene(SceneName.MainScene.ToString());

@@ -1,15 +1,20 @@
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class DataManager : SingletonBase<DataManager>
 {
     #region ::::USERS
     public Users users = new Users();
+    public UserSimple userSimple = new UserSimple();
+    public AuthToken authToken = new AuthToken();
     public LoginViewModel loginViewModel;
+
     #endregion
 
     public List<HeroProbability> heroProbabilities = new List<HeroProbability>();
@@ -30,6 +35,7 @@ public class DataManager : SingletonBase<DataManager>
         enemyDatas.Clear();
         mapPosDatas.Clear();
 
+        LoadData("AuthToken", ref authToken);
         LoadData("LoginViewModel", ref loginViewModel);
         LoadListData("HeroProbability", ref heroProbabilities);
         LoadListData("HeroData", ref heroDatas);
@@ -63,6 +69,20 @@ public class DataManager : SingletonBase<DataManager>
         {
             Debug.LogError($"Data {fileName} Not Exist!");
         }
+    }
+
+    public void SaveData<T>(string fileName, T data)
+    {
+        string json = JsonConvert.SerializeObject(data);
+        if (!System.IO.Directory.Exists(Constant.ABSOLUTE_FILE_PATH))
+        {
+            System.IO.Directory.CreateDirectory(Constant.ABSOLUTE_FILE_PATH);
+        }
+
+        string filePath = Constant.ABSOLUTE_FILE_PATH + fileName + ".json";
+
+        // 파일에 JSON 쓰기
+        System.IO.File.WriteAllText(filePath, json);
     }
 
     public HeroData FindHeroDataByPrefabName(string prefabName)

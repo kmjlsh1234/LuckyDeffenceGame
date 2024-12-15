@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,12 +19,13 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
     public void SendRequest<T>(string uri, T requestBody, HTTP method, Action<UnityWebRequest> callBack)
     {
-        StartCoroutine(HTTPRequest(uri, requestBody, method, callBack));
+        string detailUri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.SPLITTER + ServerConfig.API_SERVER_PORT + uri;
+        StartCoroutine(HTTPRequest(detailUri, requestBody, method, callBack));
     }
 
     public void RefreshToken<T>(T requestBody, Action<UnityWebRequest> callBack)
     {
-        string uri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.API_SERVER_PORT + ServerURI.AUTH_TOKEN_REFRESH;
+        string uri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.SPLITTER + ServerConfig.API_SERVER_PORT + ServerURI.AUTH_TOKEN_REFRESH;
         StartCoroutine(TokenRefreshRequest(uri, requestBody, callBack));
     }
 
@@ -33,7 +35,7 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         {
             SetRequestHeader(req);
             SetRequestBody(req, requestBody);
-
+            Debug.Log("URI : " + uri);
             yield return req.SendWebRequest();
 
             if(req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
@@ -59,8 +61,16 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
     public void SetRequestHeader(UnityWebRequest req)
     {
+        AuthToken authToken = DataManager.Instance.authToken;
+
+        if (authToken.jwtToken != string.Empty) { jwtToken = authToken.jwtToken; }
+
+        if (authToken.refreshToken != string.Empty) { refreshToken = authToken.refreshToken; }
+
         // JWT 토큰 추가
         req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+
+        req.SetRequestHeader("Content-Type", "application/json");
     }
 
     private void SetRequestBody<T>(UnityWebRequest req, T requestBody)

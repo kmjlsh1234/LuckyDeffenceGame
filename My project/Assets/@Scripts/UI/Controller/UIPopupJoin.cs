@@ -42,6 +42,7 @@ public class UIPopupJoin : UIBase
     {
         if (res.result == UnityWebRequest.Result.Success)
         {
+            Debug.LogError("BreakPoint");
             UIManager.Instance.Pop();
         }
         else

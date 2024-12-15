@@ -4,9 +4,11 @@ using UnityEngine;
 
 public static class Constant
 {
+    
     public const string SFX_FILE_PATH = "Sounds/SFX/";
     public const string BGM_FILE_PATH = "Sounds/BGM/";
-    
+
+    public const string ABSOLUTE_FILE_PATH = "Assets/Resources/Data/Json/";
     public const string DATA_FILE_PATH = "Data/Json/";
 
     public const string MAP_PREFAB_PATH = "Prefs/Map/";
