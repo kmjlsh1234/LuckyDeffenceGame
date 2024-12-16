@@ -62,10 +62,8 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
     public void SetRequestHeader(UnityWebRequest req)
     {
         AuthToken authToken = DataManager.Instance.authToken;
-
-        if (authToken.jwtToken != string.Empty) { jwtToken = authToken.jwtToken; }
-
-        if (authToken.refreshToken != string.Empty) { refreshToken = authToken.refreshToken; }
+        
+        req.SetRequestHeader("Accept", "*/*");
 
         // JWT 토큰 추가
         req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
