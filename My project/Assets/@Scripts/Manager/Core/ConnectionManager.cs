@@ -41,7 +41,12 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
             if(req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
             {
                 UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
+                yield break;
             }
+            Debug.LogError("req.responseCode : " + req.responseCode);
+            Debug.LogError("req.error : " + req.error);
+            Debug.LogError("req.downloadHandler.text : " + req.downloadHandler.text);
+            Debug.LogError("req.result : " + req.result);
             callBack(req);
         }
     }
@@ -66,7 +71,7 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         req.SetRequestHeader("Accept", "*/*");
 
         // JWT 토큰 추가
-        req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+        //req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
 
         req.SetRequestHeader("Content-Type", "application/json");
     }
@@ -78,5 +83,6 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
         req.uploadHandler = new UploadHandlerRaw(bodyRaw);
         req.downloadHandler = new DownloadHandlerBuffer();
+        Debug.LogError("jsonData : " + jsonData);
     }
 }

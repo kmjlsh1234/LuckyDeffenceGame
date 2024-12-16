@@ -8,7 +8,7 @@ public class ServerConfig
     public static string SERVER_PREFIX = "http://";
     public static string SPLITTER = ":";
     //API SERVER
-    public static string API_SERVER_IP_ADDRESS = "127.0.0.1";
+    public static string API_SERVER_IP_ADDRESS = "localhost";
     public static string API_SERVER_PORT = "8080";
     
     //IN GAME SERVER
