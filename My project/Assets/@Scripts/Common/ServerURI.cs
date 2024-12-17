@@ -9,5 +9,7 @@ public static class ServerURI
     public const string AUTH_TOKEN_REFRESH = "/api/v1/token/refresh";
 
     public const string GET_PROFILE_REQUEST = "/api/v1/profile";
+    public const string ADD_PROFILE_REQUEST = "/api/v1/profile";
+
 
 }

@@ -1,36 +1,41 @@
-using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class MainScene : SceneBase
+public class UIPopupJoinProfile : UIBase
 {
-    
-    public override void Init()
-    {
-        base.Init();
-        _sceneName = SceneName.MainScene;
-        UIManager.Instance.Push(UIType.UIPopupMain);
+    [SerializeField] private TMP_InputField nickNameField;
+    [SerializeField] private Button saveButton;
 
-        //프로필 요청
-        ConnectionManager.Instance.SendRequest<UnityWebRequest>(ServerURI.GET_PROFILE_REQUEST, null, HTTP.GET, GetProfileResponse);
+    public override void Init(ErrorCode code = ErrorCode.SUCCESS)
+    {
+        base.Init(code);
+        saveButton.OnClickAsObservable().Subscribe(_ => JoinProfileRequest()).AddTo(gameObject);
     }
 
-    public void GetProfileResponse(UnityWebRequest res)
+    public void JoinProfileRequest()
+    {
+        if(nickNameField.text.Length > 15 || nickNameField.text == string.Empty)
+        {
+            
+        }
+        ProfileAddParam profileAddParam = new ProfileAddParam(nickNameField.text);
+        ConnectionManager.Instance.SendRequest(ServerURI.ADD_PROFILE_REQUEST, profileAddParam, HTTP.POST, JoinProfileResponse);
+    }
+
+    public void JoinProfileResponse(UnityWebRequest res)
     {
         switch (res.responseCode)
         {
             //OK
             case 200:
-                Profile profile = JsonConvert.DeserializeObject<Profile>(res.downloadHandler.text);
-                if(profile != null)
-                {
-                    DataManager.Instance.profile = profile;
-                    UIManager.Instance.Pop();
-                }
+                //profile 저장
+                UIManager.Instance.Pop();
                 break;
-            //Bad Request
             case 400:
                 UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
                 break;
@@ -50,7 +55,8 @@ public class MainScene : SceneBase
             case 500:
                 UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
                 break;
+
         }
     }
-
+    
 }

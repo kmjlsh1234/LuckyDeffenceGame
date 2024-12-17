@@ -17,13 +17,5 @@ public class UIPopupMain : UIBase
             MapManager.Instance.CurrentMapType = MapType.Map_City;
             SceneManager.LoadScene("GameScene");
         });
-
-        ConnectionManager.Instance.SendRequest<UnityWebRequest>(ServerURI.GET_PROFILE_REQUEST, null, HTTP.GET, GetProfileResponse);
-
-    }
-
-    public void GetProfileResponse(UnityWebRequest res)
-    {
-        //Profile Not Found면 Profile 입력 화면 띄우기
     }
 }
