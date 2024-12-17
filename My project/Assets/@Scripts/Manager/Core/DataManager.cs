@@ -14,7 +14,6 @@ public class DataManager : SingletonBase<DataManager>
     public UserSimple userSimple = new UserSimple();
     public AuthToken authToken = new AuthToken();
     public LoginViewModel loginViewModel;
-
     #endregion
 
     public List<HeroProbability> heroProbabilities = new List<HeroProbability>();

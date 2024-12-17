@@ -78,18 +78,13 @@ public class UIPopupSplash : UIBase
 
         //refresh토큰 조회
         string refreshToken = res.GetResponseHeader("ReAuthentication");
-
         AuthToken authToken = new AuthToken(jwtToken, refreshToken);
         DataManager.Instance.authToken = authToken;
 
         //users 정보 저장
-        if (res.downloadHandler != null)
-        {
-            string jsonResponse = res.downloadHandler.text;
-
-            UserSimple userSimple = JsonConvert.DeserializeObject<UserSimple>(jsonResponse);
-            DataManager.Instance.userSimple = userSimple;
-        }
+        string jsonResponse = res.downloadHandler.text;
+        UserSimple userSimple = JsonConvert.DeserializeObject<UserSimple>(jsonResponse);
+        DataManager.Instance.userSimple = userSimple;
 
         //로컬 데이터 저장
         DataManager.Instance.SaveData("LoginViewModel", loginViewModel);
@@ -101,13 +96,6 @@ public class UIPopupSplash : UIBase
 
     private void LoginFail(UnityWebRequest res)
     {
-        switch (res.error)
-        {
-            //유저 정보가 없다면 회원가입 화면 띄우기
-            default:
-                break;
-        }
-
-        //
+        UIManager.Instance.Push(UIType.UIPopupMessage);
     }
 }

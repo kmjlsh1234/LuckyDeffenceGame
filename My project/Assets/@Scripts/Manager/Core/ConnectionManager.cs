@@ -12,6 +12,8 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 {
     private string jwtToken;
     private string refreshToken;
+    private List<string> excludeURL = new List<String>{ ServerURI.AUTH_LOGIN_REQUEST, ServerURI.AUTH_JOIN_REQUEST };
+    
     public void Init()
     {
         
@@ -19,43 +21,35 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
     public void SendRequest<T>(string uri, T requestBody, HTTP method, Action<UnityWebRequest> callBack)
     {
-        string detailUri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.SPLITTER + ServerConfig.API_SERVER_PORT + uri;
-        StartCoroutine(HTTPRequest(detailUri, requestBody, method, callBack));
+        StartCoroutine(HTTPRequest(uri, requestBody, method, callBack));
     }
 
     public void RefreshToken<T>(T requestBody, Action<UnityWebRequest> callBack)
     {
-        string uri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.SPLITTER + ServerConfig.API_SERVER_PORT + ServerURI.AUTH_TOKEN_REFRESH;
+        string uri = ServerURI.AUTH_TOKEN_REFRESH;
         StartCoroutine(TokenRefreshRequest(uri, requestBody, callBack));
     }
 
     IEnumerator HTTPRequest<T>(string uri, T requestBody, HTTP method, Action<UnityWebRequest> callBack)
     {
-        using(UnityWebRequest req = new UnityWebRequest(uri, method.ToString()))
+        string detailUri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.SPLITTER + ServerConfig.API_SERVER_PORT + uri;
+        using (UnityWebRequest req = new UnityWebRequest(detailUri, method.ToString()))
         {
-            SetRequestHeader(req);
+            SetRequestHeader(req, uri);
             SetRequestBody(req, requestBody);
-            Debug.Log("URI : " + uri);
+
             yield return req.SendWebRequest();
 
-            if(req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
-            {
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                yield break;
-            }
-            Debug.LogError("req.responseCode : " + req.responseCode);
-            Debug.LogError("req.error : " + req.error);
-            Debug.LogError("req.downloadHandler.text : " + req.downloadHandler.text);
-            Debug.LogError("req.result : " + req.result);
             callBack(req);
         }
     }
 
     IEnumerator TokenRefreshRequest<T>(string uri, T requestBody, Action<UnityWebRequest> callBack)
     {
+        string detailUri = ServerConfig.SERVER_PREFIX + ServerConfig.API_SERVER_IP_ADDRESS + ServerConfig.SPLITTER + ServerConfig.API_SERVER_PORT + uri;
         using (UnityWebRequest req = new UnityWebRequest(uri, HTTP.POST.ToString()))
         {
-            SetRequestHeader(req);
+            SetRequestHeader(req, uri);
             SetRequestBody(req, requestBody);
 
             yield return req.SendWebRequest();
@@ -64,16 +58,18 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         }
     }
 
-    public void SetRequestHeader(UnityWebRequest req)
-    {
-        AuthToken authToken = DataManager.Instance.authToken;
-        
+    public void SetRequestHeader(UnityWebRequest req, string uri)
+    {       
         req.SetRequestHeader("Accept", "*/*");
-
-        // JWT 토큰 추가
-        //req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-
         req.SetRequestHeader("Content-Type", "application/json");
+
+        AuthToken authToken = DataManager.Instance.authToken;
+
+        //JWT 토큰 필요한지 체크
+        if (excludeURL.Contains(uri)) { return; }
+        
+        // JWT 토큰 추가
+        req.SetRequestHeader("Authorization", "Bearer " + jwtToken);
     }
 
     private void SetRequestBody<T>(UnityWebRequest req, T requestBody)
