@@ -18,7 +18,7 @@ public class UIPopupGame : UIBase
     [SerializeField] private TMP_Text _currentMoney;
     [SerializeField] private TMP_Text _needGenerateMoney;
 
-    public override void Init(ErrorCode code = ErrorCode.SUCCESS)
+    public override void Init()
     {
         base.Init();
         GameManager.Instance.CurrentMoney = 40;

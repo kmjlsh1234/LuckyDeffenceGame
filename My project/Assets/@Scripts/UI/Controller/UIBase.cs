@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIBase : MonoBehaviour
 {
     protected Canvas _canvas;
-    public virtual void Init(ErrorCode code = ErrorCode.SUCCESS) 
+    public virtual void Init() 
     {
         _canvas = this.GetComponent<Canvas>();
     }

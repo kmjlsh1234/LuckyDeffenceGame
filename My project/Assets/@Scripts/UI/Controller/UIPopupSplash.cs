@@ -17,10 +17,10 @@ public class UIPopupSplash : UIBase
     [SerializeField] private Button joinButton;
     [SerializeField] private Button modUserInfoButton;
     [SerializeField] private Button googleLoginButton;
-
+    
     private LoginViewModel loginViewModel;
 
-    public override void Init(ErrorCode code = ErrorCode.SUCCESS)
+    public override void Init()
     {
         base.Init();
         AddEvent();
@@ -53,7 +53,6 @@ public class UIPopupSplash : UIBase
         else
         {
             loginViewModel = new LoginViewModel(idField.text, passField.text);
-            Debug.Log($"ID : {idField.text}\nPW : {passField.text}");
         }
 
         ConnectionManager.Instance.SendRequest(ServerURI.AUTH_LOGIN_REQUEST, loginViewModel, HTTP.POST, LoginResponse);
@@ -96,6 +95,7 @@ public class UIPopupSplash : UIBase
 
     private void LoginFail(UnityWebRequest res)
     {
+        
         UIManager.Instance.Push(UIType.UIPopupMessage);
     }
 }

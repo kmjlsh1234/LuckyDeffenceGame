@@ -13,7 +13,7 @@ public class UIPopupJoin : UIBase
     [SerializeField] private TMP_InputField passCheckField;
     [SerializeField] private Button joinButton;
     [SerializeField] private Button backButton;
-    public override void Init(ErrorCode code = ErrorCode.SUCCESS)
+    public override void Init()
     {
         base.Init();
         AddEvent();
@@ -40,36 +40,6 @@ public class UIPopupJoin : UIBase
 
     public void JoinResponse(UnityWebRequest res)
     {
-        switch (res.responseCode)
-        {
-            //OK
-            case 200:
-                UIManager.Instance.Pop();
-                break;
-            //No Content
-            case 204: 
-                break;
-            //Bad Request
-            case 400:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Unauthorized(need token)
-            case 401:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Forbidden(auth Error)
-            case 403:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Not Found
-            case 404:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Internal Server Error
-            case 500:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-
-        }
+        UIManager.Instance.Pop();
     }
 }

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,9 +12,9 @@ public class UIPopupJoinProfile : UIBase
     [SerializeField] private TMP_InputField nickNameField;
     [SerializeField] private Button saveButton;
 
-    public override void Init(ErrorCode code = ErrorCode.SUCCESS)
+    public override void Init()
     {
-        base.Init(code);
+        base.Init();
         saveButton.OnClickAsObservable().Subscribe(_ => JoinProfileRequest()).AddTo(gameObject);
     }
 
@@ -29,33 +30,20 @@ public class UIPopupJoinProfile : UIBase
 
     public void JoinProfileResponse(UnityWebRequest res)
     {
-        switch (res.responseCode)
+        if(res.result == UnityWebRequest.Result.Success)
         {
-            //OK
-            case 200:
-                //profile ¿˙¿Â
-                UIManager.Instance.Pop();
-                break;
-            case 400:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Unauthorized(need token)
-            case 401:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Forbidden(auth Error)
-            case 403:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Not Found
-            case 404:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Internal Server Error
-            case 500:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
+            Profile profile = JsonConvert.DeserializeObject<Profile>(res.downloadHandler.text);
+            
+            if(profile != null)
+            {
+                DataManager.Instance.profile = profile;
+            }
+            else
+            {
+                Debug.LogError("Profile Deserialize Fail");
+            }
 
+            UIManager.Instance.Pop();
         }
     }
     

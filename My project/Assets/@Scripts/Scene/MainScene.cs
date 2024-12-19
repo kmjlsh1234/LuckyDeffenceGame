@@ -19,38 +19,12 @@ public class MainScene : SceneBase
 
     public void GetProfileResponse(UnityWebRequest res)
     {
-        switch (res.responseCode)
+        //¼º°ø ½Ã 
+        Profile profile = JsonConvert.DeserializeObject<Profile>(res.downloadHandler.text);
+        if (profile != null)
         {
-            //OK
-            case 200:
-                Profile profile = JsonConvert.DeserializeObject<Profile>(res.downloadHandler.text);
-                if(profile != null)
-                {
-                    DataManager.Instance.profile = profile;
-                    UIManager.Instance.Pop();
-                }
-                break;
-            //Bad Request
-            case 400:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Unauthorized(need token)
-            case 401:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Forbidden(auth Error)
-            case 403:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Not Found
-            case 404:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-            //Internal Server Error
-            case 500:
-                UIManager.Instance.Push(UIType.UIPopupMessage, ErrorCode.USER_NOT_EXIST);
-                break;
-        }
+            DataManager.Instance.profile = profile;
+            UIManager.Instance.Pop();
+        }        
     }
-
 }

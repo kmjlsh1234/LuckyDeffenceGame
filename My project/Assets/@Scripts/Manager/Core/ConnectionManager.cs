@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
@@ -40,7 +41,7 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
             yield return req.SendWebRequest();
 
-            callBack(req);
+            callBack.Invoke(req);
         }
     }
 
@@ -54,7 +55,7 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
             yield return req.SendWebRequest();
 
-            callBack(req);
+            callBack.Invoke(req);
         }
     }
 

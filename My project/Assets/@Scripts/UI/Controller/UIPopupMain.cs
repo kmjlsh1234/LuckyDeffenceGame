@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIPopupMain : UIBase
 {
     [SerializeField] private Button _gameStartButton; 
-    public override void Init(ErrorCode code = ErrorCode.SUCCESS)
+    public override void Init()
     {
         base.Init();
 
