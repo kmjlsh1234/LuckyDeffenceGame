@@ -7,6 +7,7 @@ public enum UIType
     UIPopupSplash,
     UIPopupJoin,
     UIPopupMain,
+    UIPopupJoinProfile,
     UIPopupGame,
     UIPopupMessage,
 }

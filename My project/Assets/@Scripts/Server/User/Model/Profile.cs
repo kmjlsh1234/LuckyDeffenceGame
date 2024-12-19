@@ -8,6 +8,7 @@ public class Profile
     public long id;
     public long userId;
     public string nickname;
+    public int level;
     public string image;
     public DateTime createdAt;
     public DateTime updatedAt;
