@@ -37,6 +37,8 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
             + ServerConfig.API_SERVER_PORT 
             + uri;
 
+        Debug.Log("endPoint : " + detailUri);
+        
         using (UnityWebRequest req = new UnityWebRequest(detailUri, method.ToString()))
         {
             SetRequestHeader(req, uri);
@@ -78,14 +80,15 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
 
     public void SetRequestHeader(UnityWebRequest req, string uri)
     {       
-        AuthToken authToken = DataManager.Instance.authToken;
+        req.SetRequestHeader("Content-Type", "application/json");
+        req.SetRequestHeader("Accept", "*/*");
 
         //JWT 토큰 필요한지 체크
         if (excludeURL.Contains(uri)) { return; }
-        
+        AuthToken authToken = DataManager.Instance.authToken;
+        Debug.Log("jwtToken : " + authToken.jwtToken.ToString());
         req.SetRequestHeader("Authorization", "Bearer " + jwtToken); // JWT 토큰 추가
-        req.SetRequestHeader("Content-Type", "application/json");
-        req.SetRequestHeader("Accept", "*/*");
+        
     }
 
     private void SetRequestBody<T>(UnityWebRequest req, T requestBody)

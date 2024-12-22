@@ -36,7 +36,7 @@ public class UIPopupJoinProfile : UIBase
             
             if(profile != null)
             {
-                DataManager.Instance.profile = profile;
+                DataManager.Instance.profile.Value = profile;
             }
             else
             {
