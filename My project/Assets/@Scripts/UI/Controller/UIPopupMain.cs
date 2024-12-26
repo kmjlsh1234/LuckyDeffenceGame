@@ -64,7 +64,7 @@ public class UIPopupMain : UIBase
         if (res.result == UnityWebRequest.Result.Success)
         {           
             Profile profile = JsonConvert.DeserializeObject<Profile>(res.downloadHandler.text);
-            if (profile != null)
+            if (profile.nickname != null)
             {
                 DataManager.Instance.profile.Value = profile;
                 return;
