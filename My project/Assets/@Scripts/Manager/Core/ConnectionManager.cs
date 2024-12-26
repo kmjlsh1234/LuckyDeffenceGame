@@ -41,6 +41,8 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         
         using (UnityWebRequest req = new UnityWebRequest(detailUri, method.ToString()))
         {
+            req.downloadHandler = new DownloadHandlerBuffer();
+
             SetRequestHeader(req, uri);
             SetRequestBody(req, requestBody);
 
@@ -96,7 +98,6 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         if (requestBody == null) return;
         string jsonData = JsonConvert.SerializeObject(requestBody);
         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
-        req.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        req.downloadHandler = new DownloadHandlerBuffer();
+        req.uploadHandler = new UploadHandlerRaw(bodyRaw); 
     }
 }

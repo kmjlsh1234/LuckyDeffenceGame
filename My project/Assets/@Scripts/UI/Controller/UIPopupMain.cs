@@ -62,8 +62,7 @@ public class UIPopupMain : UIBase
     public void GetProfileResponse(UnityWebRequest res)
     {
         if (res.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log(res.downloadHandler.text);
+        {           
             Profile profile = JsonConvert.DeserializeObject<Profile>(res.downloadHandler.text);
             if (profile != null)
             {
@@ -71,6 +70,6 @@ public class UIPopupMain : UIBase
                 return;
             }
         }
-        UIManager.Instance.Push(UIType.UIPopupJoin);
+        UIManager.Instance.Push(UIType.UIPopupJoinProfile);
     }
 }
