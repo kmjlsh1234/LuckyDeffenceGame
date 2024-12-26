@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -14,7 +15,7 @@ public class DataManager : SingletonBase<DataManager>
     public UserSimple userSimple = new UserSimple();
     public AuthToken authToken = new AuthToken();
     public LoginViewModel loginViewModel;
-    public Profile profile;
+    public ReactiveProperty<Profile> profile = new ReactiveProperty<Profile>();
     #endregion
 
     public List<HeroProbability> heroProbabilities = new List<HeroProbability>();
