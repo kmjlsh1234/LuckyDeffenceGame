@@ -9,7 +9,6 @@ public class CurrencyController : MonoBehaviour
     [Header("Currency")]
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private TMP_Text diamondText;
-    [SerializeField] private TMP_Text energyText;
 
     private void Start()
     {

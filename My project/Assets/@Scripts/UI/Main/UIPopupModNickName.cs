@@ -7,28 +7,35 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class UIPopupJoinProfile : UIBase
+public class UIPopupModNickName : UIBase
 {
     [SerializeField] private TMP_InputField nickNameField;
     [SerializeField] private Button saveButton;
-
+    [SerializeField] private Button backButton;
     public override void Init()
     {
         base.Init();
-        saveButton.OnClickAsObservable().Subscribe(_ => JoinProfileRequest()).AddTo(gameObject);
+        saveButton.OnClickAsObservable().Subscribe(_ => ModNickNameRequest()).AddTo(gameObject);
+        backButton.OnClickAsObservable().Subscribe(_ =>
+        {
+            if(DataManager.Instance.profile.Value.nickname != null)
+            {
+                UIManager.Instance.Pop();
+            }
+        }).AddTo(gameObject);
     }
 
-    public void JoinProfileRequest()
+    public void ModNickNameRequest()
     {
         if(nickNameField.text.Length > 15 || nickNameField.text == string.Empty)
         {
             
         }
         ProfileModParam profileModParam = new ProfileModParam(nickNameField.text, null);
-        ConnectionManager.Instance.SendRequest(ServerURI.ADD_PROFILE_REQUEST, profileModParam, HTTP.PUT, JoinProfileResponse);
+        ConnectionManager.Instance.SendRequest(ServerURI.ADD_PROFILE_REQUEST, profileModParam, HTTP.PUT, ModNickNameResponse);
     }
 
-    public void JoinProfileResponse(UnityWebRequest res)
+    public void ModNickNameResponse(UnityWebRequest res)
     {
         if(res.result == UnityWebRequest.Result.Success)
         {

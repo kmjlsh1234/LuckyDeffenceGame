@@ -11,7 +11,6 @@ using UnityEngine.UI;
 
 public class UIPopupMain : UIBase
 {
-    [SerializeField] private Button modProfileButton;
     [SerializeField] private Button singlePlayButton;
     [SerializeField] private Button multiPlayButton;
     [SerializeField] private Button settingButton;
@@ -28,7 +27,6 @@ public class UIPopupMain : UIBase
     {
         singlePlayButton.OnClickAsObservable().Subscribe(_ => OnClickSinglePlayButton()).AddTo(gameObject);
         multiPlayButton.OnClickAsObservable().Subscribe(_ => OnClickMultiPlayButton()).AddTo(gameObject);
-        modProfileButton.OnClickAsObservable().Subscribe(_ => UIManager.Instance.Push(UIType.UIPopupJoinProfile)).AddTo(gameObject);
     }
 
     private void OnClickSinglePlayButton()

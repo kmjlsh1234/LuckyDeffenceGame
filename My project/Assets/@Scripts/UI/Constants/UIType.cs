@@ -5,9 +5,11 @@ using UnityEngine;
 public enum UIType
 {
     UIPopupSplash,
+    UIPopupLogin,
     UIPopupJoin,
     UIPopupMain,
-    UIPopupJoinProfile,
     UIPopupGame,
     UIPopupMessage,
+    UIPopupProfile,
+    UIPopupModNickName,
 }

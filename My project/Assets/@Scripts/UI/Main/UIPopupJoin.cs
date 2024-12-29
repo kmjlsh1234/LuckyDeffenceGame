@@ -13,6 +13,7 @@ public class UIPopupJoin : UIBase
     [SerializeField] private TMP_InputField passCheckField;
     [SerializeField] private Button joinButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private Button loginButton;
     public override void Init()
     {
         base.Init();
@@ -23,6 +24,7 @@ public class UIPopupJoin : UIBase
     {
         joinButton.OnClickAsObservable().Subscribe(_ => OnClickJoinButton()).AddTo(gameObject);
         backButton.OnClickAsObservable().Subscribe(_ => UIManager.Instance.Pop()).AddTo(gameObject);
+        loginButton.OnClickAsObservable().Subscribe(_ => UIManager.Instance.Pop()).AddTo(gameObject);
     }
 
     public void OnClickJoinButton()

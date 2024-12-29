@@ -15,6 +15,8 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private TMP_Text level;
     [SerializeField] private Slider exSlider;
 
+    [SerializeField] private Button profileButton;
+
     public void Start()
     {
         //Event µî·Ï
@@ -26,6 +28,7 @@ public class ProfileController : MonoBehaviour
 
     private void AddEvent()
     {
+        profileButton.OnClickAsObservable().Subscribe(_ => UIManager.Instance.Push(UIType.UIPopupProfile)).AddTo(gameObject);
         DataManager.Instance.profile.Subscribe(profile =>
         {
             if (profile != null)
@@ -33,7 +36,7 @@ public class ProfileController : MonoBehaviour
                 nickName.text = profile.nickname;                                           //nickname
                 level.text = profile.level.ToString();                                      //level
                 profileImage.sprite = ResourceManager.Instance.GetSprite(profile.image);    //image
-                exSlider.value = profile.level * 100 / profile.ex;                          //ex
+                exSlider.value = profile.ex / profile.level * 100;                          //ex
             }
 
         }).AddTo(gameObject);
@@ -50,7 +53,7 @@ public class ProfileController : MonoBehaviour
             }
             else
             {
-                UIManager.Instance.Push(UIType.UIPopupJoinProfile);
+                UIManager.Instance.Push(UIType.UIPopupModNickName);
             }
         }
     }

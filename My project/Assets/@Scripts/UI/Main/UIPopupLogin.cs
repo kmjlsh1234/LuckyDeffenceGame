@@ -8,9 +8,13 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIPopupSplash : UIBase
+public class UIPopupLogin : UIBase
 {
-    [SerializeField] private Button autoLoginButton;
+    [SerializeField] private TMP_InputField idField;
+    [SerializeField] private TMP_InputField passField;
+    [SerializeField] private Button loginButton;
+    [SerializeField] private Button joinButton;
+    [SerializeField] private Button backButton;
     private LoginViewModel loginViewModel;
 
     public override void Init()
@@ -19,26 +23,25 @@ public class UIPopupSplash : UIBase
         AddEvent();
     }
 
-    public void AddEvent()
+    private void AddEvent() 
     {
-        autoLoginButton.OnClickAsObservable().Subscribe(_ => AutoLogin()).AddTo(gameObject);
-    }
-
-    private void AutoLogin()
-    {
-        if (DataManager.Instance.loginViewModel == null)
-        {
-            UIManager.Instance.Push(UIType.UIPopupLogin);
-        }
-        else
-        {
-            LoginRequest();
-        }
+        loginButton.OnClickAsObservable().Subscribe(_ => LoginRequest()).AddTo(gameObject);
+        joinButton.OnClickAsObservable().Subscribe(_ => UIManager.Instance.Push(UIType.UIPopupJoin)).AddTo(gameObject);
+        backButton.OnClickAsObservable().Subscribe(_ => UIManager.Instance.Pop()).AddTo(gameObject);
     }
 
     public void LoginRequest()
     {
-        loginViewModel = DataManager.Instance.loginViewModel;
+
+        if (DataManager.Instance.loginViewModel != null)
+        {
+            loginViewModel = DataManager.Instance.loginViewModel;
+        }
+        else
+        {
+            loginViewModel = new LoginViewModel(idField.text, passField.text);
+        }
+
         ConnectionManager.Instance.SendRequest(ServerURI.AUTH_LOGIN_REQUEST, loginViewModel, HTTP.POST, LoginResponse);
     }
 
@@ -79,6 +82,6 @@ public class UIPopupSplash : UIBase
 
     private void LoginFail(UnityWebRequest res)
     {
-        UIManager.Instance.Push(UIType.UIPopupLogin);
+        UIManager.Instance.Push(UIType.UIPopupMessage);
     }
 }
