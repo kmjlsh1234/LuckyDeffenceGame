@@ -89,7 +89,7 @@ public class ConnectionManager : SingletonBase<ConnectionManager>
         if (excludeURL.Contains(uri)) { return; }
         AuthToken authToken = DataManager.Instance.authToken;
         Debug.Log("jwtToken : " + authToken.jwtToken.ToString());
-        req.SetRequestHeader("Authorization", "Bearer " + jwtToken); // JWT 토큰 추가
+        req.SetRequestHeader("Authorization", authToken.jwtToken.ToString()); // JWT 토큰 추가
         
     }
 

@@ -8,6 +8,7 @@ public class ResourceManager : SingletonBase<ResourceManager>
     private Dictionary<string, GameObject> _enemyDic = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> _projectileDic = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> _extraPrefabDic = new Dictionary<string, GameObject>();
+    private Dictionary<string, Sprite> spriteDic = new Dictionary<string, Sprite>();
 
     public void Init()
     {
@@ -15,6 +16,7 @@ public class ResourceManager : SingletonBase<ResourceManager>
         LoadData(_enemyDic, Constant.ENEMY_PREFAB_PATH);
         LoadData(_projectileDic, Constant.PROJECTILE_PREFAB_PATH);
         LoadData(_extraPrefabDic, Constant.EXTRA_PREFAB_PATH);
+        LoadData(spriteDic, Constant.SPRITE_PATH);
     }
 
     public void LoadData<T>(Dictionary<string,T> dic, string filePath) where T : UnityEngine.Object
@@ -85,4 +87,20 @@ public class ResourceManager : SingletonBase<ResourceManager>
             return null;
         }
     }
+
+    public Sprite GetSprite(string key)
+    {
+        Sprite sprite = null;
+
+        if (spriteDic.TryGetValue(key, out sprite))
+        {
+            return sprite;
+        }
+        else
+        {
+            Debug.LogError($"{key} Not Exist!");
+            return null;
+        }
+    }
+
 }

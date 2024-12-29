@@ -9,6 +9,7 @@ public class Profile
     public long userId;
     public string nickname;
     public int level;
+    public long ex;
     public string image;
     public DateTime createdAt;
     public DateTime updatedAt;
