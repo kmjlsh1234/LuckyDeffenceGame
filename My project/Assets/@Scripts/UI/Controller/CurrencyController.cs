@@ -14,7 +14,9 @@ public class CurrencyController : MonoBehaviour
     {
         //내부재화 요청
         ConnectionManager.Instance.SendRequest<UnityWebRequest>(ServerURI.GET_GOLD_REQUEST, null, HTTP.GET, GetGoldResponse);
+
         //TODO : 외부재화 요청
+        ConnectionManager.Instance.SendRequest<UnityWebRequest>(ServerURI.GET_DIAMOND_REQUEST, null, HTTP.GET, GetDiamondResponse);
     }
 
     public void GetGoldResponse(UnityWebRequest res)
@@ -25,6 +27,22 @@ public class CurrencyController : MonoBehaviour
             if (int.TryParse(responseText, out int gold))
             {
                 goldText.text = res.downloadHandler.text;
+            }
+        }
+        else
+        {
+            UIManager.Instance.Push(UIType.UIPopupMessage);
+        }
+    }
+
+    public void GetDiamondResponse(UnityWebRequest res)
+    {
+        if (res.result == UnityWebRequest.Result.Success)
+        {
+            string responseText = res.downloadHandler.text;
+            if (int.TryParse(responseText, out int diamond))
+            {
+                diamondText.text = res.downloadHandler.text;
             }
         }
         else

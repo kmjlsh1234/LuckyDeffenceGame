@@ -13,6 +13,7 @@ public static class ServerURI
     public const string ADD_PROFILE_REQUEST = "/api/v1/profile";
     //CURRENCY
     public const string GET_GOLD_REQUEST = "/api/v1/golds";
+    public const string GET_DIAMOND_REQUEST = "/api/v1/diamonds";
     //STAT
     public const string GET_STAT_REQUEST = "/api/v1/stats";
 

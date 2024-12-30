@@ -21,6 +21,7 @@ public class UIPopupProfile : UIBase
 
     [Header("stats")]
     [SerializeField] private TMP_Text longestPlayTime;
+    [SerializeField] private TMP_Text highestWaveCount;
     [SerializeField] private TMP_Text bossKillCount;
     [SerializeField] private TMP_Text killCount;
     [SerializeField] private TMP_Text totalPlayTime;

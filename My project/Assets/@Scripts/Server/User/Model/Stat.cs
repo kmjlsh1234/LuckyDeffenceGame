@@ -8,6 +8,7 @@ public class Stat
     public long id;
     public long userId;
     public long longestPlayTime;
+    public int highestWaveCount;
     public long bossKillCount;
     public long killCount;
     public long soloPlayTime;
