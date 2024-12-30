@@ -16,6 +16,7 @@ public class DataManager : SingletonBase<DataManager>
     public AuthToken authToken = new AuthToken();
     public LoginViewModel loginViewModel;
     public ReactiveProperty<Profile> profile = new ReactiveProperty<Profile>();
+    public ReactiveProperty<Stat> stat = new ReactiveProperty<Stat>();
     #endregion
 
     public List<HeroProbability> heroProbabilities = new List<HeroProbability>();

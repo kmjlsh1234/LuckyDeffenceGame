@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 3654294455733707052}
   - component: {fileID: 3432025578823295937}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,9 +190,9 @@ RectTransform:
   - {fileID: 3736469009881733114}
   m_Father: {fileID: 3264377458288214806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 739.55975, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 739.55975, y: -350.9983}
   m_SizeDelta: {x: 1479.1195, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3654294455733707052
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 4125958757463425233}
   - component: {fileID: 7967216442424358552}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Total_Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 2393132604670865112}
   - component: {fileID: 7646815901644862836}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -539,9 +539,9 @@ RectTransform:
   - {fileID: 1238966384483657174}
   m_Father: {fileID: 3264377458288214806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 739.55975, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 739.55975, y: -215.6767}
   m_SizeDelta: {x: 1479.1195, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2393132604670865112
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 8105316318535176624}
   - component: {fileID: 8336423973427626759}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Total_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 6725295677787631074}
   - component: {fileID: 2611616132979076477}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Total_Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,7 +1115,7 @@ GameObject:
   - component: {fileID: 6543607992364275465}
   - component: {fileID: 5272647260118619175}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Multi_Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1382,7 +1382,7 @@ GameObject:
   - component: {fileID: 5910793813848146750}
   - component: {fileID: 2939556676573717179}
   m_Layer: 5
-  m_Name: Stat
+  m_Name: Longest_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1805,7 +1805,7 @@ GameObject:
   - component: {fileID: 333587450271465693}
   - component: {fileID: 4481788788495958469}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Solo_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2495,7 +2495,7 @@ GameObject:
   - component: {fileID: 1102030278294585861}
   - component: {fileID: 2174854000442573739}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Kill_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2781,7 +2781,7 @@ GameObject:
   - component: {fileID: 6565058668888749379}
   - component: {fileID: 5997875599007903942}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Longest_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2918,7 +2918,7 @@ GameObject:
   - component: {fileID: 6557090121907828857}
   - component: {fileID: 4868039610356286485}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Multi_Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3053,7 +3053,7 @@ GameObject:
   - component: {fileID: 2037744962786408325}
   - component: {fileID: 1365159392575726284}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Solo_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3206,7 +3206,7 @@ GameObject:
   - component: {fileID: 429942815836228654}
   - component: {fileID: 6039299868667246460}
   m_Layer: 5
-  m_Name: Stat_Higest
+  m_Name: Common_Stat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3229,9 +3229,9 @@ RectTransform:
   - {fileID: 7146852292659025029}
   m_Father: {fileID: 3264377458288214806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 739.55975, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 739.55975, y: -62.632942}
   m_SizeDelta: {x: 1479.1195, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &429942815836228654
@@ -3542,7 +3542,7 @@ GameObject:
   - component: {fileID: 3125560912170665923}
   - component: {fileID: 7186994932217504158}
   m_Layer: 5
-  m_Name: Stat
+  m_Name: Kill_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3620,7 +3620,7 @@ GameObject:
   - component: {fileID: 3712416978066844950}
   - component: {fileID: 6051850806274279463}
   m_Layer: 5
-  m_Name: Stat
+  m_Name: Boss_Kill_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3908,7 +3908,7 @@ GameObject:
   - component: {fileID: 4456392899033965881}
   - component: {fileID: 7944053843903699767}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Solo_Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4271,7 +4271,7 @@ GameObject:
   - component: {fileID: 280533755100974360}
   - component: {fileID: 963423394749168400}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Boss_Kill_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4406,7 +4406,7 @@ GameObject:
   - component: {fileID: 8693329612859205178}
   - component: {fileID: 6736404333962639520}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Multi_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4484,7 +4484,7 @@ GameObject:
   - component: {fileID: 9080918786338545599}
   - component: {fileID: 6620341487657620318}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: Total_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4832,7 +4832,7 @@ GameObject:
   - component: {fileID: 3914043797208117369}
   - component: {fileID: 8163069645287541187}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Multi_Play_Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5631,6 +5631,15 @@ MonoBehaviour:
   level: {fileID: 6079553062306846803}
   exSlider: {fileID: 562724223075782754}
   exp: {fileID: 286903460988016030}
+  longestPlayTime: {fileID: 5997875599007903942}
+  bossKillCount: {fileID: 963423394749168400}
+  killCount: {fileID: 2174854000442573739}
+  totalPlayTime: {fileID: 8336423973427626759}
+  soloPlayTime: {fileID: 4481788788495958469}
+  multiPlayTime: {fileID: 8163069645287541187}
+  totalPlayCount: {fileID: 2611616132979076477}
+  soloPlayCount: {fileID: 438856554782364646}
+  multiPlayCount: {fileID: 4868039610356286485}
   modNickNameButton: {fileID: 7248197629605774281}
   backButton: {fileID: 6060884730917259330}
 --- !u!1 &7253351971216074959
@@ -6311,7 +6320,7 @@ GameObject:
   - component: {fileID: 8092719426179068966}
   - component: {fileID: 438856554782364646}
   m_Layer: 5
-  m_Name: Text_Value
+  m_Name: Solo_Play_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
