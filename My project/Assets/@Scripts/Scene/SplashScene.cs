@@ -15,6 +15,7 @@ public class SplashScene : SceneBase
         MapManager.Instance.Init();
         PoolManager.Instance.Init();
         ConnectionManager.Instance.Init();
+        SocketManager.Instance.Init();
         GameManager.Instance.Init();
     }
 

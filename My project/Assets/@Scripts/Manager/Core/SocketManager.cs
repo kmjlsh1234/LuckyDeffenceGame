@@ -10,9 +10,9 @@ public class SocketManager : SingletonBase<SocketManager>
     private TcpClient tcpClient;
     private NetworkStream networkStream;
     
-    void Start()
+    public void Init()
     {
-        
+
     }
 
     public void ConnectToServer()

@@ -11,9 +11,6 @@ using UnityEngine.Networking;
 
 public class ConnectionManager : SingletonBase<ConnectionManager>
 {
-    private string jwtToken;
-    private string refreshToken;
-    
     private List<string> excludeURL = new List<String> { 
         ServerURI.AUTH_LOGIN_REQUEST, 
         ServerURI.AUTH_JOIN_REQUEST 
