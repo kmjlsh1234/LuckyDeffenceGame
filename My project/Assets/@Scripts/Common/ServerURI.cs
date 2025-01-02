@@ -14,6 +14,7 @@ public static class ServerURI
     //CURRENCY
     public const string GET_GOLD_REQUEST = "/api/v1/golds";
     public const string GET_DIAMOND_REQUEST = "/api/v1/diamonds";
+    public const string GET_ENERGY_REQUEST = "/api/v1/energies";
     //STAT
     public const string GET_STAT_REQUEST = "/api/v1/stats";
 
