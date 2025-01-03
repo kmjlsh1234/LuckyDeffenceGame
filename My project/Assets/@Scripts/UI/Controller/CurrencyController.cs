@@ -13,6 +13,9 @@ public class CurrencyController : MonoBehaviour
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private TMP_Text energyTimer;
 
+    private Coroutine timerRoutine;
+    private int timer;
+
     private void Start()
     {
         //내부재화 조회
@@ -66,11 +69,21 @@ public class CurrencyController : MonoBehaviour
             if(energyVo != null)
             {
                 energyText.text = energyVo.amount.ToString();
+                if(timerRoutine != null)
+                {
+                    StopCoroutine(timerRoutine);
+                    timerRoutine = StartCoroutine(Timer(energyVo.timer));
+                }
             }
         }
         else
         {
             UIManager.Instance.Push(UIType.UIPopupMessage);
+        }
+
+        IEnumerator Timer(int timer)
+        {
+            yield return new WaitForSeconds(timer);
         }
     }
 }
